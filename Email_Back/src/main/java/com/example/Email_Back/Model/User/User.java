@@ -93,19 +93,16 @@ public class User {
 
     public void deleteEmail(String id) {
         this.trashEmailsIds.add(id);
-        //TODO: add in the DB
         //TODO: delete the email from its location
     }
 
     public void restoreEmail(String id) {
         this.trashEmailsIds.remove(id);
-        //TODO: add in the DB
         //TODO: restore the email to its location
     }
 
     public void draftEmail(String id) {
         this.draftEmailsIds.add(id);
-        //TODO: add in the DB
     }
 
     public void addContact(String name, String email) {
