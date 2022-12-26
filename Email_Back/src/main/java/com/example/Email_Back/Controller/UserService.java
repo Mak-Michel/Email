@@ -1,13 +1,14 @@
 package com.example.Email_Back.Controller;
 
-import com.example.Email_Back.Model.SignIn.ProxySignIn;
-import com.example.Email_Back.Model.SignUp.ProxySignUp;
+import com.example.Email_Back.Model.User.SignIn.ProxySignIn;
+import com.example.Email_Back.Model.User.SignUp.ProxySignUp;
+import com.example.Email_Back.Model.User.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/")
-public class HttpService {
+@RequestMapping("/user/")
+public class UserService {
 
     @PostMapping("signUp")
     public String signUp(@RequestBody ProxySignUp obj) {

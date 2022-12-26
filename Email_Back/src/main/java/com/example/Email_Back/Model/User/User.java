@@ -1,4 +1,4 @@
-package com.example.Email_Back.Controller;
+package com.example.Email_Back.Model.User;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class User {
     private ArrayList<String> draftEmailsIds;
     private ArrayList<Contact> contacts;
 
-    public User (String name, String userEmail, String userPassword) {
+    public void setUserProperties (String name, String userEmail, String userPassword) {
         this.name = name;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
@@ -85,12 +85,10 @@ public class User {
 
     public void recieveEmail(String id) {
         this.recievedEmailsIds.add(id);
-        //TODO: add in the DB
     }
 
     public void sendEmail(String id) {
         this.sentEmailsIds.add(id);
-        //TODO: add in the DB
     }
 
     public void deleteEmail(String id) {

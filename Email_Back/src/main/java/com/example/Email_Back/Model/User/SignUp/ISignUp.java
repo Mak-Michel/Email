@@ -1,4 +1,4 @@
-package com.example.Email_Back.Model.SignUp;
+package com.example.Email_Back.Model.User.SignUp;
 
 public interface ISignUp {
 

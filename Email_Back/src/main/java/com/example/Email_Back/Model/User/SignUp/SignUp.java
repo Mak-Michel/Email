@@ -1,7 +1,7 @@
-package com.example.Email_Back.Model.SignUp;
+package com.example.Email_Back.Model.User.SignUp;
 
-import com.example.Email_Back.Controller.User;
-import com.example.Email_Back.Model.UserHandler;
+import com.example.Email_Back.Model.User.User;
+import com.example.Email_Back.Model.User.UserHandler;
 
 public class SignUp implements ISignUp{
 
@@ -40,7 +40,8 @@ public class SignUp implements ISignUp{
     }
 
     public void addUser() {
-        User user = new User(this.name, this.email, this.password);
+        User user = new User();
+        user.setUserProperties(this.name, this.email, this.password);
         UserHandler saver = new UserHandler(user);
         saver.saveUser();
         System.out.println("User saved successfully");

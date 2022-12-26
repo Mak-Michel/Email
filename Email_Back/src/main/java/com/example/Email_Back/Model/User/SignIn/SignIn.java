@@ -1,7 +1,7 @@
-package com.example.Email_Back.Model.SignIn;
+package com.example.Email_Back.Model.User.SignIn;
 
-import com.example.Email_Back.Controller.User;
-import com.example.Email_Back.Model.UserHandler;
+import com.example.Email_Back.Model.User.User;
+import com.example.Email_Back.Model.User.UserHandler;
 
 public class SignIn implements ISignIn{
 

@@ -1,6 +1,6 @@
-package com.example.Email_Back.Model.SignIn;
+package com.example.Email_Back.Model.User.SignIn;
 
-import com.example.Email_Back.Controller.User;
+import com.example.Email_Back.Model.User.User;
 
 public interface ISignIn {
 

@@ -1,4 +1,4 @@
-package com.example.Email_Back.Controller;
+package com.example.Email_Back.Model.User;
 
 import java.util.ArrayList;
 

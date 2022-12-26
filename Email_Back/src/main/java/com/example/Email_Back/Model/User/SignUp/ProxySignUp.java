@@ -1,8 +1,6 @@
-package com.example.Email_Back.Model.SignUp;
+package com.example.Email_Back.Model.User.SignUp;
 
-import com.example.Email_Back.Model.UserHandler;
-
-import java.io.File;
+import com.example.Email_Back.Model.User.UserHandler;
 
 public class ProxySignUp implements ISignUp{
 
