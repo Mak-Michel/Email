@@ -38,7 +38,7 @@ public class SignIn implements ISignIn{
         User user;
         UserHandler loader = new UserHandler(this.email);
         user = loader.loadUser();
-        System.out.println("User saved successfully");
+        System.out.println("User loaded successfully");
         return user;
     }
 

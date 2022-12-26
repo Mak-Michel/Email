@@ -4,15 +4,14 @@ import com.example.Email_Back.Controller.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.*;
+import java.util.*;
 
 public class UserHandler {
 
-    private String directory = "";
+    private String directory = "Users\\";
     private String extension = ".json";
-    private User user;
+    private User user = new User(null, null, null);
 
     public UserHandler(User user) {
         this.user = user;
@@ -33,13 +32,17 @@ public class UserHandler {
     }
 
     public User loadUser() {
+        Map<String, String> user = new HashMap<String, String>();
         try(FileReader myFile = new FileReader(this.directory + this.user.getUserEmail() + this.extension)) {
             ObjectMapper mapper = new ObjectMapper();
-            this.user = mapper.readValue(myFile, new TypeReference<User>() {});
+            user = mapper.readValue(myFile, new TypeReference<Map<String, String>>() {}); //TODO handle load
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
+        this.user.setName(user.get("name"));
+        this.user.setUserEmail(user.get("userEmail"));
+        this.user.setUserPassword(user.get("userPassword"));
         return this.user;
     }
 
@@ -49,13 +52,14 @@ public class UserHandler {
     }
 
     public boolean rightPassword(String password) {
+        Map<String, String> user = new HashMap<String, String>();
         try(FileReader myFile = new FileReader(this.directory + this.user.getUserEmail() + this.extension)) {
             ObjectMapper mapper = new ObjectMapper();
-            this.user = mapper.readValue(myFile, new TypeReference<User>() {});
+            user = mapper.readValue(myFile, new TypeReference<Map<String, String>>() {}); //TODO handle load
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return password == this.user.getUserPassword();
+        return password.equals(user.get("userPassword"));
     }
 
 }
