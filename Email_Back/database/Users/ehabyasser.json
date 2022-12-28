@@ -3,7 +3,8 @@
   "userEmail" : "ehabyasser",
   "userPassword" : "ehab",
   "sentEmailsIds" : null,
-  "receivedEmailsIds" : null,
+  "receivedEmailsIds" : ["fF8bBN82eqOD9VN", "OcWlpG7NbldGGkt", "g6UunN0waqBz9mW"],
   "trashEmailsIds" : null,
-  "draftEmailsIds" : null
+  "draftEmailsIds" : null,
+  "contacts" : null
 }

@@ -7,8 +7,8 @@ import { RegisterationComponent } from './registeration.component';
 
 const routes: Routes = [
   {
-     path: 'registeration' , component: RegisterationComponent ,
-     children:[
+    path: 'registeration' , component: RegisterationComponent ,
+    children:[
       { path: '' , redirectTo: '/registeration/signup' , pathMatch: 'full' },    // if path: '' redirect to signup
       { path: 'signup' , component: SignupComponent },
       { path: 'login' , component: LoginComponent }
