@@ -1,7 +1,8 @@
 package com.example.Email_Back.Model.User.SignIn;
 
 import com.example.Email_Back.Model.User.User;
-import com.example.Email_Back.Model.User.UserCahce;
+import com.example.Email_Back.Model.User.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProxySignIn implements ISignIn{
 
@@ -10,13 +11,13 @@ public class ProxySignIn implements ISignIn{
     private final String mailExtension;
     private String password;
 
-    private UserCahce cache;
+    private UserHandler userHandler;
 
-    public ProxySignIn(String email, String password, UserCahce cache) {
+    public ProxySignIn(String email, String password, UserHandler userHandler) {
         this.setEmail(email.substring(0, email.indexOf("@")));
         this.mailExtension = email.substring(email.indexOf("@"));
         this.setPassword(password);
-        this.cache = cache;
+        this.userHandler = userHandler;
     }
 
     public String getEmail() {
@@ -39,7 +40,7 @@ public class ProxySignIn implements ISignIn{
         this.checkValidInputs();
         this.checkExistence();
         this.checkPassword();
-        this.user = new SignIn(this.email, this.password, this.cache);
+        this.user = new SignIn(this.email, this.password, this.userHandler);
         return this.user.loadUser();
     }
 
@@ -51,12 +52,12 @@ public class ProxySignIn implements ISignIn{
     }
 
     private void checkExistence() {
-        if(!cache.exists(this.email))
+        if(!this.userHandler.exists(this.email))
             throw new RuntimeException("User is not found!");
     }
 
     private void checkPassword() {
-        String pass = cache.getPassword(this.email);
+        String pass = userHandler.getPassword(this.email);
         if(!pass.equals(this.password))
             throw new RuntimeException("Password is incorrect!");
     }

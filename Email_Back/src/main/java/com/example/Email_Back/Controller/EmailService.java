@@ -2,7 +2,6 @@ package com.example.Email_Back.Controller;
 
 import com.example.Email_Back.Model.Email.Email;
 import com.example.Email_Back.Model.Email.EmailCache;
-import com.example.Email_Back.Model.Email.EmailDB;
 import com.example.Email_Back.Model.Email.EmailHeader;
 import com.example.Email_Back.Model.User.User;
 import com.example.Email_Back.Model.User.UserHandler;
@@ -19,6 +18,10 @@ public class EmailService {
     @Autowired
     private EmailCache cache;
 
+    public EmailService(EmailCache cache) {
+        this.cache = cache;
+    }
+
     @GetMapping("open")
     public ResponseEntity<Email> retrieveEmail(@RequestBody String emailId){
         return new ResponseEntity<>(this.cache.retrieveEmail(emailId), HttpStatus.OK);
@@ -27,7 +30,7 @@ public class EmailService {
     @GetMapping("inbox")
     public ResponseEntity<EmailHeader[]> retrieveInbox(@RequestBody String userEmail){
         UserHandler uh = new UserHandler();
-        String[] userEmailsIDS = uh.loadUser(userEmail).getRecievedEmailsIds().toArray(new String[0]);
+        String[] userEmailsIDS = uh.getReceivedEmailsIds(userEmail).toArray(new String[0]);
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = cache.retrieveEmail(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
@@ -38,7 +41,7 @@ public class EmailService {
     @GetMapping("sent")
     public ResponseEntity<EmailHeader[]> retrieveSent(@RequestBody String userEmail){
         UserHandler uh = new UserHandler();
-        String[] userEmailsIDS = uh.loadUser(userEmail).getSentEmailsIds().toArray(new String[0]);
+        String[] userEmailsIDS = uh.getSentEmailsIds(userEmail).toArray(new String[0]);
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = cache.retrieveEmail(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
@@ -49,7 +52,7 @@ public class EmailService {
     @GetMapping("trashed")
     public ResponseEntity<EmailHeader[]> retrieveTrashed(@RequestBody String userEmail){
         UserHandler uh = new UserHandler();
-        String[] userEmailsIDS = uh.loadUser(userEmail).getTrashEmailsIds().toArray(new String[0]);
+        String[] userEmailsIDS = uh.getTrashEmailsIds(userEmail).toArray(new String[0]);
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = cache.retrieveEmail(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
@@ -60,7 +63,7 @@ public class EmailService {
     @GetMapping("draft")
     public ResponseEntity<EmailHeader[]> retrieveDraft(@RequestBody String userEmail){
         UserHandler uh = new UserHandler();
-        String[] userEmailsIDS = uh.loadUser(userEmail).getDraftEmailsIds().toArray(new String[0]);
+        String[] userEmailsIDS = uh.getDraftEmailsIds(userEmail).toArray(new String[0]);
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = cache.retrieveEmail(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
@@ -77,7 +80,7 @@ public class EmailService {
         User[] receivers = null; //load user from database with id of newEmail.getReceivers()
         sender.getSentEmailsIds().add(newEmail.getId());
         for(User receiver : receivers)
-            receiver.getRecievedEmailsIds().add(newEmail.getId());
+            receiver.getReceivedEmailsIds().add(newEmail.getId());
 
         return new ResponseEntity<>("Email sent successfully!!!", HttpStatus.CREATED);
     }
@@ -92,4 +95,5 @@ public class EmailService {
         this.cache.updateEmail(editedEmail);
         return new ResponseEntity<>("Email edited successfully!!!", HttpStatus.OK);
     }
+
 }

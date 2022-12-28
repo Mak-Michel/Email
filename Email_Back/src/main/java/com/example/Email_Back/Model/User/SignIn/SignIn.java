@@ -1,19 +1,20 @@
 package com.example.Email_Back.Model.User.SignIn;
 
-import com.example.Email_Back.Model.User.UserCahce;
 import com.example.Email_Back.Model.User.User;
+import com.example.Email_Back.Model.User.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SignIn implements ISignIn{
 
     private String email;
     private String password;
 
-    private UserCahce cache;
+    private UserHandler userHandler;
 
-    public SignIn(String email, String password, UserCahce cache) {
+    public SignIn(String email, String password, UserHandler userHandler) {
         this.setEmail(email);
         this.setPassword(password);
-        this.cache = cache;
+        this.userHandler = userHandler;
     }
 
 
@@ -39,7 +40,7 @@ public class SignIn implements ISignIn{
 
     public User loadUser() {
         User user;
-        user = cache.loadUser(this.email);
+        user = userHandler.loadUser(this.email);
         System.out.println("User loaded successfully");
         return user;
     }

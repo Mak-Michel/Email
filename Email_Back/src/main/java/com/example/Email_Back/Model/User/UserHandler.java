@@ -1,48 +1,46 @@
 package com.example.Email_Back.Model.User;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.util.ArrayList;
 
+@Component
 public class UserHandler {
 
-    private final String directory = "database\\Users\\";
-    private final String extension = ".json";
-    private User user;
+    @Autowired
+    private UserCache cache;
 
-    public UserHandler(User user) {
-        this.user = user;
-    }
-
-    public UserHandler() {
-    }
-
-    public void saveUser() {
-        try (FileOutputStream myFile = new FileOutputStream(this.directory + this.user.getUserEmail() + this.extension)) {
-            ObjectMapper mapper = new ObjectMapper();
-            byte[] Obj = mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(this.user);
-            myFile.write(Obj);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public void saveUser(User user) {
+        cache.saveUser(user);
     }
 
     public User loadUser(String email) {
-        this.user = new User();
-        try(FileReader myFile = new FileReader(this.directory + email + this.extension)) {
-            ObjectMapper mapper = new ObjectMapper();
-            this.user = mapper.readValue(myFile, new TypeReference<>() {});
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-        return this.user;
+        return cache.loadUser(email);
     }
 
     public boolean exists(String email) {
-        File f = new File(this.directory + email + this.extension);
-        return f.exists();
+        return cache.exists(email);
+    }
+
+    public String getPassword(String email) {
+        return cache.loadUser(email).getUserPassword();
+    }
+
+    public ArrayList<String> getReceivedEmailsIds(String email) {
+        return cache.loadUser(email).getReceivedEmailsIds();
+    }
+
+    public ArrayList<String> getSentEmailsIds(String email) {
+        return cache.loadUser(email).getSentEmailsIds();
+    }
+
+    public ArrayList<String> getTrashEmailsIds(String email) {
+        return cache.loadUser(email).getTrashEmailsIds();
+    }
+
+    public ArrayList<String> getDraftEmailsIds(String email) {
+        return cache.loadUser(email).getDraftEmailsIds();
     }
 
 }

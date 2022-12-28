@@ -1,6 +1,7 @@
 package com.example.Email_Back.Model.User.SignUp;
 
-import com.example.Email_Back.Model.User.UserCahce;
+import com.example.Email_Back.Model.User.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProxySignUp implements ISignUp{
 
@@ -9,14 +10,15 @@ public class ProxySignUp implements ISignUp{
     private String email;
     private final String mailExtension;
     private String password;
-    private UserCahce cache;
 
-    public ProxySignUp(String name, String email, String password, UserCahce cache) {
+    private UserHandler userHandler;
+
+    public ProxySignUp(String name, String email, String password, UserHandler userHandler) {
         this.setName(name);
         this.setEmail(email.substring(0, email.indexOf("@")));
         this.mailExtension = email.substring(email.indexOf("@"));
         this.setPassword(password);
-        this.cache = cache;
+        this.userHandler = userHandler;
     }
 
     public String getName() {
@@ -46,7 +48,7 @@ public class ProxySignUp implements ISignUp{
     public void addUser() {
         this.checkValidInputs();
         this.checkExistence();
-        this.user = new SignUp(this.name, this.email, this.password, this.cache);
+        this.user = new SignUp(this.name, this.email, this.password, this.userHandler);
         this.user.addUser();
     }
 
@@ -60,7 +62,7 @@ public class ProxySignUp implements ISignUp{
     }
 
     private void checkExistence() {
-        if(cache.exists(this.email))
+        if(userHandler.exists(this.email))
             throw new RuntimeException("User already exists!");
     }
 

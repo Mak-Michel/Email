@@ -8,10 +8,10 @@ public class User {
     private String userEmail;
     private String userPassword;
     private ArrayList<String> sentEmailsIds;
-    private ArrayList<String> recievedEmailsIds;
+    private ArrayList<String> receivedEmailsIds;
     private ArrayList<String> trashEmailsIds;
     private ArrayList<String> draftEmailsIds;
-    private ArrayList<Contact> contacts;
+    private HashMap<String, Contact> contacts;
 
     public void setUserProperties (String name, String userEmail, String userPassword) {
         this.name = name;
@@ -51,12 +51,12 @@ public class User {
         this.sentEmailsIds = sentEmailsIds;
     }
 
-    public ArrayList<String> getRecievedEmailsIds() {
-        return recievedEmailsIds;
+    public ArrayList<String> getReceivedEmailsIds() {
+        return receivedEmailsIds;
     }
 
-    public void setRecievedEmailsIds(ArrayList<String> recievedEmailsIds) {
-        this.recievedEmailsIds = recievedEmailsIds;
+    public void setReceivedEmailsIds(ArrayList<String> receivedEmailsIds) {
+        this.receivedEmailsIds = receivedEmailsIds;
     }
 
     public ArrayList<String> getTrashEmailsIds() {
@@ -75,16 +75,16 @@ public class User {
         this.draftEmailsIds = draftEmailsIds;
     }
 
-    public ArrayList<Contact> getContacts() {
+    public HashMap<String, Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(ArrayList<Contact> contacts) {
+    public void setContacts(HashMap<String, Contact> contacts) {
         this.contacts = contacts;
     }
 
-    public void recieveEmail(String id) {
-        this.recievedEmailsIds.add(id);
+    public void receiveEmail(String id) {
+        this.receivedEmailsIds.add(id);
     }
 
     public void sendEmail(String id) {
@@ -106,10 +106,10 @@ public class User {
     }
 
     public void addContact(String name, String email) {
-        if(contacts.contains(name))
-            contacts.get(contacts.indexOf(name)).addUserEmail(email);
+        if(getContacts().containsKey(name))
+            getContacts().get(getContacts().get(name)).addUserEmail(email);
         else
-            contacts.add(new Contact(name, email));
+            getContacts().put(name, new Contact(name, email));
     }
 
     public void forwardEmail() {

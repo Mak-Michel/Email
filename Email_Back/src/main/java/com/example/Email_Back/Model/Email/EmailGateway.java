@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.HashMap;
 
-public class EmailHandler {
+public class EmailGateway {
 
     public  static void saveEmails(HashMap<String, Email> emails) {
         try (FileOutputStream myFile = new FileOutputStream("database\\Emails\\emails.json")) {

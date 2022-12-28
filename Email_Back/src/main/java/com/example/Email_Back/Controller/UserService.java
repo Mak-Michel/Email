@@ -3,7 +3,10 @@ package com.example.Email_Back.Controller;
 import com.example.Email_Back.Model.User.SignIn.ProxySignIn;
 import com.example.Email_Back.Model.User.SignUp.ProxySignUp;
 import com.example.Email_Back.Model.User.User;
-import com.example.Email_Back.Model.User.UserCahce;
+import com.example.Email_Back.Model.User.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,34 +14,31 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/")
 public class UserService {
 
-    private UserCahce cache = new UserCahce();
-
-//    public UserService(UserCahce cahce) {
-//        this.cache = cahce;
-//    }
+    @Autowired
+    private UserHandler userHandler;
 
     @PostMapping("signUp")
-    public String signUp(@RequestBody User obj) {
-        ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getUserEmail(), obj.getUserPassword(), this.cache);
+    public ResponseEntity<String> signUp(@RequestBody User obj) {
+        ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
         try {
             proxy.addUser();
         } catch (Exception e) {
-            return e.getMessage();
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return "User saved successfully";
+        return new ResponseEntity<String>("User saved successfully", HttpStatus.OK);
     }
 
     @GetMapping("signIn")
-    public User signIn(@RequestBody User obj) {
-        ProxySignIn proxy = new ProxySignIn(obj.getUserEmail(), obj.getUserPassword(), this.cache);
+    public ResponseEntity<User> signIn(@RequestBody User obj) {
+        ProxySignIn proxy = new ProxySignIn(obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
         User user;
         try {
             user = proxy.loadUser();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        return user;
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
 }

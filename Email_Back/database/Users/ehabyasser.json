@@ -1,10 +1,9 @@
 {
-  "name" : "Ehab",
+  "name" : "Ehab Yasser",
   "userEmail" : "ehabyasser",
   "userPassword" : "ehab",
   "sentEmailsIds" : null,
-  "recievedEmailsIds" : null,
+  "receivedEmailsIds" : null,
   "trashEmailsIds" : null,
-  "draftEmailsIds" : null,
-  "contacts" : null
+  "draftEmailsIds" : null
 }

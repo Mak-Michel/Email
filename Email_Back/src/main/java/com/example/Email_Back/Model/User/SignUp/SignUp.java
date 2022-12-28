@@ -1,7 +1,8 @@
 package com.example.Email_Back.Model.User.SignUp;
 
-import com.example.Email_Back.Model.User.UserCahce;
 import com.example.Email_Back.Model.User.User;
+import com.example.Email_Back.Model.User.UserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SignUp implements ISignUp{
 
@@ -9,13 +10,13 @@ public class SignUp implements ISignUp{
     private String email;
     private String password;
 
-    private UserCahce cache;
+    private UserHandler userHandler;
 
-    public SignUp(String name, String email, String password, UserCahce cache) {
+    public SignUp(String name, String email, String password, UserHandler userHandler) {
         this.setName(name);
         this.setEmail(email);
         this.setPassword(password);
-        this.cache = cache;
+        this.userHandler = userHandler;
     }
 
     public String getName() {
@@ -45,7 +46,7 @@ public class SignUp implements ISignUp{
     public void addUser() {
         User user = new User();
         user.setUserProperties(this.name, this.email, this.password);
-        cache.saveUser(user);
+        userHandler.saveUser(user);
         System.out.println("User saved successfully");
     }
 
