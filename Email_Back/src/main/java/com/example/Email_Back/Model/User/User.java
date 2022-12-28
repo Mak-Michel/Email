@@ -4,14 +4,14 @@ import java.util.*;
 
 public class User {
 
-    private String name;
-    private String userEmail;
-    private String userPassword;
-    private ArrayList<String> sentEmailsIds;
-    private ArrayList<String> receivedEmailsIds;
-    private ArrayList<String> trashEmailsIds;
-    private ArrayList<String> draftEmailsIds;
-    private HashMap<String, Contact> contacts;
+    private String name = "";
+    private String userEmail = "";
+    private String userPassword = "";
+    private ArrayList<String> sentEmailsIds = new ArrayList<>();
+    private ArrayList<String> receivedEmailsIds = new ArrayList<>();
+    private ArrayList<String> trashEmailsIds = new ArrayList<>();
+    private ArrayList<String> draftEmailsIds = new ArrayList<>();
+    private HashMap<String, Contact> contacts = new HashMap<>();
 
     public void setUserProperties (String name, String userEmail, String userPassword) {
         this.name = name;

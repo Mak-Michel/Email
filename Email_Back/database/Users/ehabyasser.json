@@ -2,9 +2,9 @@
   "name" : "Ehab Yasser",
   "userEmail" : "ehabyasser",
   "userPassword" : "ehab",
-  "sentEmailsIds" : null,
-  "receivedEmailsIds" : ["fF8bBN82eqOD9VN", "OcWlpG7NbldGGkt", "g6UunN0waqBz9mW"],
-  "trashEmailsIds" : null,
-  "draftEmailsIds" : null,
-  "contacts" : null
+  "sentEmailsIds" : [ ],
+  "receivedEmailsIds" : ["fF8bBN82eqOD9VN"],
+  "trashEmailsIds" : [ ],
+  "draftEmailsIds" : [ ],
+  "contacts" : { }
 }
