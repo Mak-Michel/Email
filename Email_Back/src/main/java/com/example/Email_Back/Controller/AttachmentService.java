@@ -14,10 +14,6 @@ public class AttachmentService {
 
     AttachmentHandler currentHandler;
 
-    public AttachmentService () {
-        this.currentHandler = new AttachmentHandler();
-    }
-
     @PostMapping("attach")
     public void UploadAttachment (@RequestBody Attachment ourAttachment) {
         currentHandler.LoadAttachment(ourAttachment);

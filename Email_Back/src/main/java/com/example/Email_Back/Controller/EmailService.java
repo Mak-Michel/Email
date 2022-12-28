@@ -18,10 +18,6 @@ public class EmailService {
     @Autowired
     private EmailCache cache;
 
-    public EmailService(EmailCache cache) {
-        this.cache = cache;
-    }
-
     @GetMapping("open")
     public ResponseEntity<Email> retrieveEmail(@RequestBody String emailId){
         return new ResponseEntity<>(this.cache.retrieveEmail(emailId), HttpStatus.OK);
