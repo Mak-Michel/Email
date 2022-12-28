@@ -1,9 +1,18 @@
 package com.example.Email_Back.Model.Email;
 
 import com.example.Email_Back.Utils.RandomGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("prototype")
 public class Email {
 
+    @Autowired
+    private ApplicationContextAware applicationContextProvider;
     private String id;
     private String emailBody;
     private int date;
@@ -78,9 +87,12 @@ public class Email {
     }
 
     public EmailHeader createHeader(){
+        EmailHeader header = new EmailHeader();
         if(this.emailBody.length() < 50)
-            return new EmailHeader(this.emailBody, this.sender, this.receivers, this.subject, this.date, this.read);
-        return new EmailHeader(this.emailBody.substring(0,50), this.sender, this.receivers, this.subject, this.date, this.read);
+            header.setHeaderProperties(this.emailBody, this.sender, this.receivers, this.subject, this.date, this.read);
+        else
+            header.setHeaderProperties(this.emailBody.substring(0,50), this.sender, this.receivers, this.subject, this.date, this.read);
+        return header;
     }
 
     public boolean delete(){

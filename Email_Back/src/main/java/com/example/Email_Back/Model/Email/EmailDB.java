@@ -7,7 +7,7 @@ import java.util.HashMap;
 @Component
 public class EmailDB {
 
-    private HashMap<String, Email> database;
+    private HashMap<String, Email> database = new HashMap<>();
 
     public void loadDatabase(){
         this.database = EmailGateway.loadEmails();

@@ -28,7 +28,7 @@ public class EmailService {
 
     @GetMapping("inbox")
     public ResponseEntity<EmailHeader[]> retrieveInbox(@RequestBody String userEmail){
-        String[] userEmailsIDS = userHandler.getReceivedEmailsIds(userEmail).toArray(new String[0]);
+        String[] userEmailsIDS = this.userHandler.getReceivedEmailsIds(userEmail).toArray(new String[0]);
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = cache.retrieveEmail(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
@@ -78,6 +78,8 @@ public class EmailService {
             receivers[i] = this.userHandler.loadUser(newEmail.getReceivers()[i]);
             receivers[i].getReceivedEmailsIds().add(newEmail.getId());
         }
+        System.out.println(newEmail.getId());
+        this.cache.addEmail(newEmail);
         return new ResponseEntity<>("Email sent successfully!!!", HttpStatus.CREATED);
     }
 

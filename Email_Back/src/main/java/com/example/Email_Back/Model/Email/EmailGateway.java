@@ -22,15 +22,13 @@ public class EmailGateway {
 
     public static HashMap<String, Email> loadEmails() {
         HashMap<String, Email> emails;
-        try (FileReader myFile = new FileReader("database\\Emails\\emails.json")) {
+        try (FileReader myFile = new FileReader("database\\Emails\\MailDB.json")) {
             ObjectMapper mapper = new ObjectMapper();
             emails = mapper.readValue(myFile, new TypeReference<HashMap<String, Email>>() {});
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
-        for (HashMap.Entry<String, Email> set : emails.entrySet())
-            System.out.println(set.getValue().getSender());
         return emails;
     }
 }

@@ -53,15 +53,17 @@ public class EmailCache{
     }
 
     public void loadFromMemory(String emailId){
-        if(this.cache.size() == this.maxSize)
-            this.cache.remove(this.toRemove);
+        if(this.cache.size() == this.maxSize) {
+            CacheWatcher watcher = new CacheWatcher(this.cache);
+            watcher.start();
+        }
         this.cache.put(emailId, new CacheBlock(this.database.load(emailId), 0));
     }
 
     public void addEmail(Email email){
         if(this.cache.size() == this.maxSize) {
-            this.cache.remove(this.toRemove);
-            System.out.println("Going to remove");
+            CacheWatcher watcher = new CacheWatcher(this.cache);
+            watcher.start();
         }
         this.cache.put(email.getId(), new CacheBlock(email, System.currentTimeMillis()));
     }
