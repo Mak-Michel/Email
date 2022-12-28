@@ -1,7 +1,7 @@
 package com.example.Email_Back.Model.User.SignUp;
 
+import com.example.Email_Back.Model.User.UserCahce;
 import com.example.Email_Back.Model.User.User;
-import com.example.Email_Back.Model.User.UserHandler;
 
 public class SignUp implements ISignUp{
 
@@ -9,10 +9,13 @@ public class SignUp implements ISignUp{
     private String email;
     private String password;
 
-    public SignUp(String name, String email, String password) {
+    private UserCahce cache;
+
+    public SignUp(String name, String email, String password, UserCahce cache) {
         this.setName(name);
         this.setEmail(email);
         this.setPassword(password);
+        this.cache = cache;
     }
 
     public String getName() {
@@ -42,8 +45,7 @@ public class SignUp implements ISignUp{
     public void addUser() {
         User user = new User();
         user.setUserProperties(this.name, this.email, this.password);
-        UserHandler saver = new UserHandler(user);
-        saver.saveUser();
+        cache.saveUser(user);
         System.out.println("User saved successfully");
     }
 

@@ -4,14 +4,14 @@ import com.example.Email_Back.Model.User.User;
 
 public interface ISignIn {
 
-    public String getEmail();
+    String getEmail();
 
-    public void setEmail(String email);
+    void setEmail(String email);
 
-    public String getPassword();
+    String getPassword();
 
-    public void setPassword(String password);
+    void setPassword(String password);
 
-    public User loadUser();
+    User loadUser();
 
 }

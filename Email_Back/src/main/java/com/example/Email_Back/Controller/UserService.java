@@ -3,6 +3,7 @@ package com.example.Email_Back.Controller;
 import com.example.Email_Back.Model.User.SignIn.ProxySignIn;
 import com.example.Email_Back.Model.User.SignUp.ProxySignUp;
 import com.example.Email_Back.Model.User.User;
+import com.example.Email_Back.Model.User.UserCahce;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,21 +11,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/")
 public class UserService {
 
+    private UserCahce cache = new UserCahce();
+
+//    public UserService(UserCahce cahce) {
+//        this.cache = cahce;
+//    }
+
     @PostMapping("signUp")
-    public String signUp(@RequestBody ProxySignUp obj) {
+    public String signUp(@RequestBody User obj) {
+        ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getUserEmail(), obj.getUserPassword(), this.cache);
         try {
-            obj.addUser();
+            proxy.addUser();
         } catch (Exception e) {
             return e.getMessage();
         }
         return "User saved successfully";
     }
 
-    @PostMapping("signIn")
-    public User signIn(@RequestBody ProxySignIn obj) {
+    @GetMapping("signIn")
+    public User signIn(@RequestBody User obj) {
+        ProxySignIn proxy = new ProxySignIn(obj.getUserEmail(), obj.getUserPassword(), this.cache);
         User user;
         try {
-            user = obj.loadUser();
+            user = proxy.loadUser();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;

@@ -1,16 +1,19 @@
 package com.example.Email_Back.Model.User.SignIn;
 
+import com.example.Email_Back.Model.User.UserCahce;
 import com.example.Email_Back.Model.User.User;
-import com.example.Email_Back.Model.User.UserHandler;
 
 public class SignIn implements ISignIn{
 
     private String email;
     private String password;
 
-    public SignIn(String email, String password) {
+    private UserCahce cache;
+
+    public SignIn(String email, String password, UserCahce cache) {
         this.setEmail(email);
         this.setPassword(password);
+        this.cache = cache;
     }
 
 
@@ -36,8 +39,7 @@ public class SignIn implements ISignIn{
 
     public User loadUser() {
         User user;
-        UserHandler loader = new UserHandler(this.email);
-        user = loader.loadUser();
+        user = cache.loadUser(this.email);
         System.out.println("User loaded successfully");
         return user;
     }

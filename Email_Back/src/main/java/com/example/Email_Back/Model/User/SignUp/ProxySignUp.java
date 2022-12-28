@@ -1,20 +1,22 @@
 package com.example.Email_Back.Model.User.SignUp;
 
-import com.example.Email_Back.Model.User.UserHandler;
+import com.example.Email_Back.Model.User.UserCahce;
 
 public class ProxySignUp implements ISignUp{
 
     private ISignUp user;
     private String name;
     private String email;
-    private String mailExtension;
+    private final String mailExtension;
     private String password;
+    private UserCahce cache;
 
-    public ProxySignUp(String name, String email, String password) {
+    public ProxySignUp(String name, String email, String password, UserCahce cache) {
         this.setName(name);
         this.setEmail(email.substring(0, email.indexOf("@")));
         this.mailExtension = email.substring(email.indexOf("@"));
         this.setPassword(password);
+        this.cache = cache;
     }
 
     public String getName() {
@@ -44,7 +46,7 @@ public class ProxySignUp implements ISignUp{
     public void addUser() {
         this.checkValidInputs();
         this.checkExistence();
-        this.user = new SignUp(this.name, this.email, this.password);
+        this.user = new SignUp(this.name, this.email, this.password, this.cache);
         this.user.addUser();
     }
 
@@ -58,8 +60,7 @@ public class ProxySignUp implements ISignUp{
     }
 
     private void checkExistence() {
-        UserHandler check = new UserHandler(this.email);
-        if(check.exists())
+        if(cache.exists(this.email))
             throw new RuntimeException("User already exists!");
     }
 

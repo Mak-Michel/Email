@@ -2,18 +2,18 @@ package com.example.Email_Back.Model.User.SignUp;
 
 public interface ISignUp {
 
-    public String getName();
+    String getName();
 
-    public void setName(String name);
+    void setName(String name);
 
-    public String getEmail();
+    String getEmail();
 
-    public void setEmail(String email);
+    void setEmail(String email);
 
-    public String getPassword();
+    String getPassword();
 
-    public void setPassword(String password);
+    void setPassword(String password);
 
-    public void addUser();
+    void addUser();
 
 }

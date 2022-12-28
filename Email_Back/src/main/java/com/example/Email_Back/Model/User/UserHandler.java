@@ -7,16 +7,15 @@ import java.io.*;
 
 public class UserHandler {
 
-    private String directory = "Users\\";
-    private String extension = ".json";
-    private User user = new User();
+    private final String directory = "database\\Users\\";
+    private final String extension = ".json";
+    private User user;
 
     public UserHandler(User user) {
         this.user = user;
     }
 
-    public UserHandler(String email) {
-        this.user.setUserEmail(email);
+    public UserHandler() {
     }
 
     public void saveUser() {
@@ -29,10 +28,11 @@ public class UserHandler {
         }
     }
 
-    public User loadUser() {
-        try(FileReader myFile = new FileReader(this.directory + this.user.getUserEmail() + this.extension)) {
+    public User loadUser(String email) {
+        this.user = new User();
+        try(FileReader myFile = new FileReader(this.directory + email + this.extension)) {
             ObjectMapper mapper = new ObjectMapper();
-            this.user = mapper.readValue(myFile, new TypeReference<User>() {});
+            this.user = mapper.readValue(myFile, new TypeReference<>() {});
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -40,19 +40,9 @@ public class UserHandler {
         return this.user;
     }
 
-    public boolean exists() {
-        File f = new File(this.directory + this.user.getUserEmail() + this.extension);
+    public boolean exists(String email) {
+        File f = new File(this.directory + email + this.extension);
         return f.exists();
-    }
-
-    public boolean rightPassword(String password) {
-        try(FileReader myFile = new FileReader(this.directory + this.user.getUserEmail() + this.extension)) {
-            ObjectMapper mapper = new ObjectMapper();
-            this.user = mapper.readValue(myFile,  new TypeReference<User>() {}); //TODO handle load password only
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return password.equals(this.user.getUserPassword());
     }
 
 }

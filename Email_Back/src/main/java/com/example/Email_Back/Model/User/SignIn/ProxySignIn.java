@@ -1,19 +1,22 @@
 package com.example.Email_Back.Model.User.SignIn;
 
 import com.example.Email_Back.Model.User.User;
-import com.example.Email_Back.Model.User.UserHandler;
+import com.example.Email_Back.Model.User.UserCahce;
 
 public class ProxySignIn implements ISignIn{
 
     private ISignIn user;
     private String email;
-    private String mailExtension;
+    private final String mailExtension;
     private String password;
 
-    public ProxySignIn(String name, String email, String password) {
+    private UserCahce cache;
+
+    public ProxySignIn(String email, String password, UserCahce cache) {
         this.setEmail(email.substring(0, email.indexOf("@")));
         this.mailExtension = email.substring(email.indexOf("@"));
         this.setPassword(password);
+        this.cache = cache;
     }
 
     public String getEmail() {
@@ -36,7 +39,7 @@ public class ProxySignIn implements ISignIn{
         this.checkValidInputs();
         this.checkExistence();
         this.checkPassword();
-        this.user = new SignIn(this.email, this.password);
+        this.user = new SignIn(this.email, this.password, this.cache);
         return this.user.loadUser();
     }
 
@@ -48,14 +51,13 @@ public class ProxySignIn implements ISignIn{
     }
 
     private void checkExistence() {
-        UserHandler check = new UserHandler(this.email);
-        if(!check.exists())
+        if(!cache.exists(this.email))
             throw new RuntimeException("User is not found!");
     }
 
     private void checkPassword() {
-        UserHandler check = new UserHandler(this.email);
-        if(!check.rightPassword(this.password))
+        String pass = cache.getPassword(this.email);
+        if(!pass.equals(this.password))
             throw new RuntimeException("Password is incorrect!");
     }
 
