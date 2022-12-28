@@ -1,7 +1,10 @@
 package com.example.Email_Back.Model.Email;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 
+@Component
 public class EmailDB {
 
     private HashMap<String, Email> database;

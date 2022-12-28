@@ -1,17 +1,19 @@
 package com.example.Email_Back.Model.Email;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 
+@Component
 public class EmailCache {
 
     private HashMap<String, Email> cache = new HashMap<String, Email>();
 
     private int maxSize = 300;
-    private EmailDB database = null;
 
-    public EmailCache(EmailDB db){
-        this.database = db;
-    }
+    @Autowired
+    private EmailDB database;
 
     public Email retrieveEmail(String emailId){
         if(!cache.containsKey(emailId))
