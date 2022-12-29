@@ -15,8 +15,14 @@ public class ProxySignUp implements ISignUp{
 
     public ProxySignUp(String name, String email, String password, UserHandler userHandler) {
         this.setName(name);
-        this.setEmail(email.substring(0, email.indexOf("@")));
-        this.mailExtension = email.substring(email.indexOf("@"));
+        if(!email.contains("@")) {
+            this.setEmail(email);
+            this.mailExtension = "";
+        }
+        else {
+            this.setEmail(email.substring(0, email.indexOf("@")));
+            this.mailExtension = email.substring(email.indexOf("@"));
+        }
         this.setPassword(password);
         this.userHandler = userHandler;
     }
@@ -45,11 +51,11 @@ public class ProxySignUp implements ISignUp{
         this.password = password;
     }
 
-    public void addUser() {
+    public String addUser() {
         this.checkValidInputs();
         this.checkExistence();
         this.user = new SignUp(this.name, this.email, this.password, this.userHandler);
-        this.user.addUser();
+        return this.user.addUser();
     }
 
     private void checkValidInputs() {

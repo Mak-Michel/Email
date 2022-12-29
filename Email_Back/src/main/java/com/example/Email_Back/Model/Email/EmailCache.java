@@ -1,10 +1,8 @@
 package com.example.Email_Back.Model.Email;
 
-import ch.qos.logback.core.joran.sanity.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.util.HashMap;
 
 @Component

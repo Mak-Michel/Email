@@ -14,6 +14,6 @@ public interface ISignUp {
 
     void setPassword(String password);
 
-    void addUser();
+    String addUser();
 
 }

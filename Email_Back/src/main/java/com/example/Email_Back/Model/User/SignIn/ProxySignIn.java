@@ -36,7 +36,7 @@ public class ProxySignIn implements ISignIn{
         this.password = password;
     }
 
-    public User loadUser() {
+    public String loadUser() {
         this.checkValidInputs();
         this.checkExistence();
         this.checkPassword();

@@ -43,11 +43,12 @@ public class SignUp implements ISignUp{
         this.password = password;
     }
 
-    public void addUser() {
+    public String addUser() {
         User user = new User();
         user.setUserProperties(this.name, this.email, this.password);
         userHandler.saveUser(user);
         System.out.println("User saved successfully");
+        return this.email;
     }
 
 }

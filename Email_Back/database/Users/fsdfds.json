@@ -1,0 +1,10 @@
+{
+  "name" : "ehbsadfs",
+  "userEmail" : "fsdfds",
+  "userPassword" : "dsfdsfs",
+  "sentEmailsIds" : [ ],
+  "receivedEmailsIds" : [ ],
+  "trashEmailsIds" : [ ],
+  "draftEmailsIds" : [ ],
+  "contacts" : { }
+}

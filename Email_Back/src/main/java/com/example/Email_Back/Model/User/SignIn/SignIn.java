@@ -38,11 +38,10 @@ public class SignIn implements ISignIn{
         this.password = password;
     }
 
-    public User loadUser() {
-        User user;
-        user = userHandler.loadUser(this.email);
+    public String loadUser() {
+        userHandler.loadUser(this.email);
         System.out.println("User loaded successfully");
-        return user;
+        return this.email;
     }
 
 }

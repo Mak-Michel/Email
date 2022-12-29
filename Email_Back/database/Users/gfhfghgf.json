@@ -1,0 +1,10 @@
+{
+  "name" : "ghfg",
+  "userEmail" : "gfhfghgf",
+  "userPassword" : "fghfghfg",
+  "sentEmailsIds" : [ ],
+  "receivedEmailsIds" : [ ],
+  "trashEmailsIds" : [ ],
+  "draftEmailsIds" : [ ],
+  "contacts" : { }
+}

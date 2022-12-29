@@ -20,25 +20,25 @@ public class UserService {
     @PostMapping("signUp")
     public ResponseEntity<String> signUp(@RequestBody User obj) {
         ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
+        String email;
         try {
-            proxy.addUser();
+            email = proxy.addUser();
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<String>("User saved successfully", HttpStatus.OK);
+        return new ResponseEntity<String>(email, HttpStatus.OK);
     }
 
     @GetMapping("signIn")
-    public ResponseEntity<User> signIn(@RequestBody User obj) {
+    public ResponseEntity<String> signIn(@RequestBody User obj) {
         ProxySignIn proxy = new ProxySignIn(obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
-        User user;
+        String email;
         try {
-            user = proxy.loadUser();
+            email = proxy.loadUser();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<String>(email, HttpStatus.OK);
     }
 
 }

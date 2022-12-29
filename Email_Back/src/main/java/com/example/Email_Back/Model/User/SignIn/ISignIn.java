@@ -12,6 +12,6 @@ public interface ISignIn {
 
     void setPassword(String password);
 
-    User loadUser();
+    String loadUser();
 
 }
