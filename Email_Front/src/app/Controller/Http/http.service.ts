@@ -16,7 +16,7 @@ export class HttpService {
   }
 
   getRequest(instruction: string, requestBody?: any): Observable<any> {
-    return this.http.get(`${this._url}${instruction}`, {params: requestBody});
+    return this.http.get(`${this._url}${instruction}`, {params: {requestBody}, responseType: 'text'});
   }
 
   putRequest(instruction: string, requestBody?: any): Observable<any> {

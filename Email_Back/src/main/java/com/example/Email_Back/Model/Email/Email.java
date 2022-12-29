@@ -1,18 +1,13 @@
 package com.example.Email_Back.Model.Email;
 
+import com.example.Email_Back.Model.Caches.Cacheable;
 import com.example.Email_Back.Utils.RandomGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("prototype")
-public class Email {
-
-    @Autowired
-    private ApplicationContextAware applicationContextProvider;
+public class Email implements Cacheable {
     private String id;
     private String emailBody;
     private int date;

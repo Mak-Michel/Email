@@ -19,26 +19,27 @@ public class UserService {
 
     @PostMapping("signUp")
     public ResponseEntity<String> signUp(@RequestBody User obj) {
-        ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
+        ProxySignUp proxy = new ProxySignUp(obj.getName(), obj.getId(), obj.getUserPassword(), this.userHandler);
+        System.out.println(obj.getId());
         String email;
         try {
             email = proxy.addUser();
         } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        return new ResponseEntity<String>(email, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(email);
     }
 
     @GetMapping("signIn")
-    public ResponseEntity<String> signIn(@RequestBody User obj) {
-        ProxySignIn proxy = new ProxySignIn(obj.getUserEmail(), obj.getUserPassword(), this.userHandler);
-        String email;
+    public ResponseEntity<String> signIn(@RequestParam(value = "userEmail") String email, @RequestParam(value = "pass") String password) {
+        ProxySignIn proxy = new ProxySignIn(email, password, this.userHandler);
         try {
             email = proxy.loadUser();
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
-        return new ResponseEntity<String>(email, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(email);
     }
 
 }

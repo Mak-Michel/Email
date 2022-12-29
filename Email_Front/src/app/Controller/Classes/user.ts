@@ -1,7 +1,7 @@
 export class User {
 
     private name: string = "";
-    private userEmail: string = "";
+    private id: string = "";
     private userPassword: string = "";
     private sentEmailsIds: string[] = [""]; 
     private receivedEmailsIds: string[] = [""]; 
@@ -11,7 +11,7 @@ export class User {
 
     constructor(
         name?: string,
-        userEmail?: string,
+        id?: string,
         userPassword?: string,
         sentEmailsIds?: string[],
         receivedEmailsIds?: string[],
@@ -20,7 +20,7 @@ export class User {
         contacts?: Map<string, string>
     ) {
         this.name = name;
-        this.userEmail = userEmail;
+        this.id = id;
         this.userPassword = userPassword;
         this.sentEmailsIds = sentEmailsIds;
         this.receivedEmailsIds = receivedEmailsIds;

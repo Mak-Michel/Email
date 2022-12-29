@@ -1,11 +1,13 @@
 package com.example.Email_Back.Model.User;
 
+import com.example.Email_Back.Model.Caches.Cacheable;
+
 import java.util.*;
 
-public class User {
+public class User implements Cacheable {
 
     private String name = "";
-    private String userEmail = "";
+    private String id = "";
     private String userPassword = "";
     private ArrayList<String> sentEmailsIds = new ArrayList<>();
     private ArrayList<String> receivedEmailsIds = new ArrayList<>();
@@ -13,9 +15,9 @@ public class User {
     private ArrayList<String> draftEmailsIds = new ArrayList<>();
     private HashMap<String, Contact> contacts = new HashMap<>();
 
-    public void setUserProperties (String name, String userEmail, String userPassword) {
+    public void setUserProperties (String name, String id, String userPassword) {
         this.name = name;
-        this.userEmail = userEmail;
+        this.id = id;
         this.userPassword = userPassword;
     }
 
@@ -27,12 +29,12 @@ public class User {
         this.name = name;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getId() {
+        return id;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserPassword() {

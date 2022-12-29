@@ -31,12 +31,14 @@ export class SignupComponent {
   }
 
   signUp() {
+    alert(this.email);
     this.user = new User(this.name, this.email, this.password);
     this.http.postRequest("user/signUp", this.user).
-    subscribe(
-      (data) => {
-        console.log(data)
-        this.router.navigate(["/main-screen/inbox"]);
+    subscribe({
+        next: (data) => this.router.navigate(["/main-screen/inbox"]),
+        error(err) {
+          alert(err.error)
+        }
       }
     );
   }

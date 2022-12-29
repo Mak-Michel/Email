@@ -26,12 +26,12 @@ export class LoginComponent {
   }
 
   logIn() {
-    this.user = new User(this.email, this.password);
-    this.http.getRequest("user/signIn", this.user).
-    subscribe(
-      (data) => {
-        console.log(data)
-        this.router.navigate(["/main-screen/inbox"]);
+    this.http.getRequest(`user/signIn?userEmail=${this.email}&pass=${this.password}`).
+    subscribe({
+        next: (data) => this.router.navigate(["/main-screen/inbox"]),
+        error(err) {
+          alert(err.error)
+        }
       }
     );
   }
