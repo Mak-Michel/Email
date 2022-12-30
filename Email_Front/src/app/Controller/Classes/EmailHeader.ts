@@ -3,7 +3,7 @@ export class EmailHeader {
         public id?: string,
         public headerBody?: string,
         public sender?: string,
-        public receiver?: string[],
+        public receivers?: string[],
         public subject?: string,
         public date?: number,
         public read?: boolean ){}

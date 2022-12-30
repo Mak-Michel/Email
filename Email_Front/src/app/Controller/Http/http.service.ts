@@ -11,6 +11,10 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
+  deleteRequest(instruction: string): Observable<any> {
+    return this.http.delete(`${this._url}${instruction}`);
+  }
+
   postRequest(instruction: string, requestBody?: any): Observable<any> {
     return this.http.post(`${this._url}${instruction}`, requestBody, {responseType: 'text'});
   }
@@ -21,10 +25,6 @@ export class HttpService {
 
   putRequest(instruction: string, requestBody?: any): Observable<any> {
     return this.http.put(`${this._url}${instruction}`, requestBody);
-  }
-  
-  deleteRequest(instruction: string): Observable<any> {
-    return this.http.delete(`${this._url}${instruction}`);
   }
 
 }
