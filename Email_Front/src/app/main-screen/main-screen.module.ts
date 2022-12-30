@@ -11,7 +11,7 @@ import { SentComponent } from './m-components/sent/sent.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MainScreenRoutingModule } from './main-screen-routing.module';
 import { MainScreenComponent } from './main-screen.component';
-import { ButtonComponent } from './m-components/inbox/button/button.component';
+import { ButtonComponent } from './m-components/button/button.component';
 
 
 @NgModule({

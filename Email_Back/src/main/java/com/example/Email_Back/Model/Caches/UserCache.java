@@ -74,4 +74,13 @@ public class UserCache {
         }
     }
 
+    public void remove(String userEmail){
+        if(!this.cache.containsKey(userEmail))
+            return;
+        this.database.save(this.cache.get(userEmail).cachedObject);
+        this.cache.remove(userEmail);
+        while (this.buffer.contains(userEmail))
+            this.buffer.remove(userEmail);
+    }
+
 }

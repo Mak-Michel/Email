@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 public class EmailHeader {
 
+    private String id;
     private String headerBody;
     private String sender;
 
@@ -14,7 +15,8 @@ public class EmailHeader {
     private int date;
     private boolean read;
 
-    public void setHeaderProperties(String headerBody, String sender, String[] receiver, String subject, int date, boolean read) {
+    public void setHeaderProperties(String id, String headerBody, String sender, String[] receiver, String subject, int date, boolean read) {
+        this.id = id;
         this.headerBody = headerBody;
         this.sender = sender;
         this.receiver = receiver;
@@ -69,5 +71,13 @@ public class EmailHeader {
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/Controller/Classes/user';
-import { HttpService } from 'src/app/Controller/Http/http.service';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,12 +9,11 @@ import { HttpService } from 'src/app/Controller/Http/http.service';
 })
 export class SignupComponent {
 
-  constructor(private router: Router, private http: HttpService) { }
+  constructor(private router: Router, private proxy: ProxyService) { }
 
   private name: string = "";
   private email: string = "";
   private password: string = "";
-  private user: User;
 
   getName(name : any)
   {
@@ -31,16 +29,16 @@ export class SignupComponent {
   }
 
   signUp() {
-    alert(this.email);
-    this.user = new User(this.name, this.email, this.password);
-    this.http.postRequest("user/signUp", this.user).
+    this.proxy.signUp(this.name, this.email, this.password).
     subscribe({
-        next: (data) => this.router.navigate(["/main-screen/inbox"]),
-        error(err) {
-          alert(err.error)
-        }
+      next: (data) => {
+        this.proxy.setUser(data);
+        this.router.navigate(["/main-screen/inbox"]);
+      },
+      error(err) {
+        alert(err.error)
       }
-    );
+    });
   }
 
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-trash',
@@ -6,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./trash.component.css']
 })
 export class TrashComponent {
+
+  headers: EmailHeader[] = [];
+
+  constructor(proxy: ProxyService) {
+    proxy.getEmailList("trashed").
+    subscribe(
+      data => {
+        this.headers = JSON.parse(data);
+      }
+    )
+  }
 
 }

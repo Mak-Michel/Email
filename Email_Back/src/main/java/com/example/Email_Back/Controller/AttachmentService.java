@@ -39,8 +39,6 @@ public class AttachmentService {
         } catch (Exception e) {
             //System.out.println(e.getMessage());
         }
-        currentHandler.LoadAttachment(ourAttachment);
-        currentHandler.SaveToDB(ourAttachment.getId());
         return ResponseEntity.status(HttpStatus.FOUND).body(path);
     }
 

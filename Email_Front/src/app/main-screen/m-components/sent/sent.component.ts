@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-sent',
@@ -14,4 +16,15 @@ export class SentComponent {
 //       document.write('Window was closed!');
 //     }
 // });
+  headers: EmailHeader[] = [];
+
+  constructor(proxy: ProxyService) {
+    proxy.getEmailList("sent").
+    subscribe(
+      data => {
+        this.headers = JSON.parse(data);
+      }
+    )
+  }
+
 }

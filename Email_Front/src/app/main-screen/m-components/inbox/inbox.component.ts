@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-inbox',
@@ -8,9 +9,15 @@ import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
 })
 export class InboxComponent {
 
-  title = new EmailHeader("g6UunN0waqBz9mW" , "bye" , "Marwan" , ["Ehab"] , "myasshole" ,  10202020 , false);
-  header1 = new EmailHeader("OcWlpG7NbldGGkt", "helllo sjfhgedfhjef mhgefhjef", "Marwan", ["Mkario"], "myasshole", 10202020, false);
-  headers: EmailHeader[] = [this.title, this.header1, this.title, this.title, this.title, this.title, this.title, this.title, this.title, this.header1, this.title, this.title, this.title, this.title, this.title]
+  headers: EmailHeader[] = [];
 
+  constructor(proxy: ProxyService) {
+    proxy.getEmailList("inbox").
+    subscribe(
+      data => {
+        this.headers = JSON.parse(data);
+      }
+    )
+  }
 
 }

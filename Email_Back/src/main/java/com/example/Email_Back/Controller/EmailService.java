@@ -28,6 +28,7 @@ public class EmailService {
 
     @GetMapping("list")
     public ResponseEntity<EmailHeader[]> retrieveEmailList(@RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "listType") String listType){
+        System.out.println(userEmail + " " + listType);
         String[] userEmailsIDS = {};
         switch (listType){
             case "inbox":

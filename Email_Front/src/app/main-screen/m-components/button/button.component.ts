@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-button',
@@ -11,14 +12,15 @@ export class ButtonComponent implements OnInit {
   @Input('header') emailHeader: EmailHeader | undefined;
   @Output() onClick: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
+  constructor(private proxy: ProxyService) { }
 
   ngOnInit(): void {
   }
 
   public returnId(){
+    console.log(this.emailHeader.id);
     if(!(this.emailHeader == undefined))
-      this.onClick.emit(this.emailHeader.id);
+      this.proxy.getEmail(this.emailHeader.id).subscribe(data => console.log(data));
     this.onClick.emit("");
   }
 

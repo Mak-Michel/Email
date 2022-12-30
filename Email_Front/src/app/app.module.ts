@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpService } from './Controller/Http/http.service';
 import { MainScreenModule } from './main-screen/main-screen.module';
 import { RegisterationModule } from './registeration/registeration.module';
+import { ProxyService } from './Controller/Proxy/proxy.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { RegisterationModule } from './registeration/registeration.module';
     RegisterationModule,
     HttpClientModule       
   ],
-  providers: [HttpService],
+  providers: [HttpService, ProxyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

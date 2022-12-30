@@ -1,5 +1,6 @@
 package com.example.Email_Back.Controller;
 
+import com.example.Email_Back.Model.Caches.UserCache;
 import com.example.Email_Back.Model.User.SignIn.ProxySignIn;
 import com.example.Email_Back.Model.User.SignUp.ProxySignUp;
 import com.example.Email_Back.Model.User.User;
@@ -16,6 +17,8 @@ public class UserService {
 
     @Autowired
     private UserHandler userHandler;
+    @Autowired
+    private UserCache userCache;
 
     @PostMapping("signUp")
     public ResponseEntity<String> signUp(@RequestBody User obj) {
@@ -40,6 +43,13 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
         return ResponseEntity.status(HttpStatus.OK).body(email);
+    }
+
+    @PutMapping("signOut")
+    public ResponseEntity<String> signOut(@RequestParam(value = "userEmail") String userEmail) {
+        System.out.println("sdad");
+        this.userCache.remove(userEmail);
+        return ResponseEntity.status(HttpStatus.OK).body("Signed Out successfully!!");
     }
 
 }

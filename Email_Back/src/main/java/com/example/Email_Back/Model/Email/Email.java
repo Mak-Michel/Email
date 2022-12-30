@@ -84,9 +84,9 @@ public class Email implements Cacheable {
     public EmailHeader createHeader(){
         EmailHeader header = new EmailHeader();
         if(this.emailBody.length() < 50)
-            header.setHeaderProperties(this.emailBody, this.sender, this.receivers, this.subject, this.date, this.read);
+            header.setHeaderProperties(this.id, this.emailBody, this.sender, this.receivers, this.subject, this.date, this.read);
         else
-            header.setHeaderProperties(this.emailBody.substring(0,50), this.sender, this.receivers, this.subject, this.date, this.read);
+            header.setHeaderProperties(this.id, this.emailBody.substring(0,50), this.sender, this.receivers, this.subject, this.date, this.read);
         return header;
     }
 

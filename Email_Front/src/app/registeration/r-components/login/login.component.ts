@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/Controller/Classes/user';
-import { HttpService } from 'src/app/Controller/Http/http.service';
+import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +9,10 @@ import { HttpService } from 'src/app/Controller/Http/http.service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private http: HttpService) { }
+  constructor(private router: Router, private proxy: ProxyService) { }
 
   private email: string = "";
   private password: string = "";
-  private user: User;
 
   getEmail(email : any)
   {
@@ -26,14 +24,16 @@ export class LoginComponent {
   }
 
   logIn() {
-    this.http.getRequest(`user/signIn?userEmail=${this.email}&pass=${this.password}`).
+    this.proxy.signIn(this.email, this.password).
     subscribe({
-        next: (data) => this.router.navigate(["/main-screen/inbox"]),
-        error(err) {
-          alert(err.error)
-        }
+      next: (data) => {
+        this.proxy.setUser(data);
+        this.router.navigate(["/main-screen/inbox"]);
+      },
+      error(err) {
+        alert(err.error)
       }
-    );
+    });
   }
 
 }
