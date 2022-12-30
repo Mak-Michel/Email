@@ -5,11 +5,11 @@
     <p>Please fill in this form to login into your account.</p>
     <hr>
     <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+    <input type="text" placeholder="Enter Email" name="email" (keyup)="getEmail($event)" required>
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" placeholder="Enter Password" name="psw" (keyup)="getPassword($event)" required>
     <div class="clearfix">
-      <button class="loginbtn">Login</button>
+      <button type="button" class="loginbtn" (mouseup)="logIn()">Login</button>
       <hr>
       <button type="button" class="signupbtn" routerLink="/registeration/signup">Sign Up</button>
     </div>

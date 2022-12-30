@@ -3,6 +3,11 @@ body {
   width: 500px;
   margin: auto;
   margin-top: 5%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+form {
+  border-radius: 10px;
 }
 * {box-sizing: border-box;}
 
@@ -13,13 +18,15 @@ input[type=text], input[type=password] {
   margin: 5px 0 22px 0;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
+  background: #2f2525;
+  color: white;
 }
 
 /* Add a background color when the inputs get focus */
 input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
+  background-color: #503d3d;
   outline: none;
+  color: white;
 }
 
 /* Set a style for all buttons */
@@ -28,10 +35,9 @@ button {
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;
   cursor: pointer;
   width: 100%;
-  opacity: 0.9;
+  opacity: 0.65;
 }
 
 button:hover {

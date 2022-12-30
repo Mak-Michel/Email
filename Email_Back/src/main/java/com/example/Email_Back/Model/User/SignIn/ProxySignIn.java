@@ -14,8 +14,14 @@ public class ProxySignIn implements ISignIn{
     private UserHandler userHandler;
 
     public ProxySignIn(String email, String password, UserHandler userHandler) {
-        this.setEmail(email.substring(0, email.indexOf("@")));
-        this.mailExtension = email.substring(email.indexOf("@"));
+        if(!email.contains("@")) {
+            this.setEmail(email);
+            this.mailExtension = "";
+        }
+        else {
+            this.setEmail(email.substring(0, email.indexOf("@")));
+            this.mailExtension = email.substring(email.indexOf("@"));
+        }
         this.setPassword(password);
         this.userHandler = userHandler;
     }

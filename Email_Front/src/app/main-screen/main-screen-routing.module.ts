@@ -11,8 +11,8 @@ import { ContactsComponent } from './m-components/contacts/contacts.component';
 
 const routes: Routes = [
   {
-     path: 'main-screen' , component: MainScreenComponent ,
-     children:[
+  path: 'main-screen' , component: MainScreenComponent ,
+    children:[
       { path: '' , redirectTo: '/main-screen/inbox' , pathMatch: 'full' },    // if path: '' redirect to inbox
       { path: 'inbox' , component: InboxComponent },
       { path: 'trash' , component: TrashComponent},
