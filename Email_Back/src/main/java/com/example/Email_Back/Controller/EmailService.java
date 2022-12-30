@@ -26,46 +26,31 @@ public class EmailService {
         return ResponseEntity.status(HttpStatus.OK).body(this.emailCache.retrieve(emailId));
     }
 
-    @GetMapping("inbox")
-    public ResponseEntity<EmailHeader[]> retrieveInbox(@RequestParam(value = "userEmail") String userEmail){
-        String[] userEmailsIDS = this.userCache.retrieve(userEmail).getReceivedEmailsIds().toArray(new String[0]);
+    @GetMapping("list")
+    public ResponseEntity<EmailHeader[]> retrieveEmailList(@RequestParam(value = "userEmail") String userEmail, @RequestParam(value = "listType") String listType){
+        String[] userEmailsIDS = {};
+        switch (listType){
+            case "inbox":
+                userEmailsIDS = this.userCache.retrieve(userEmail).getReceivedEmailsIds().toArray(new String[0]);
+                break;
+            case "sent":
+                userEmailsIDS = this.userCache.retrieve(userEmail).getSentEmailsIds().toArray(new String[0]);
+                break;
+            case "trashed":
+                userEmailsIDS = this.userCache.retrieve(userEmail).getTrashEmailsIds().toArray(new String[0]);
+                break;
+            case "draft":
+                userEmailsIDS = this.userCache.retrieve(userEmail).getDraftEmailsIds().toArray(new String[0]);
+                break;
+            default:
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
         Email[] userReceivedEmails = emailCache.retrieve(userEmailsIDS);
         for (int i = 0; i < userEmailsIDS.length; i++)
             headers[i] = userReceivedEmails[userEmailsIDS.length - 1 - i].createHeader();
         return ResponseEntity.status(HttpStatus.OK).body(headers);
     }
-
-    @GetMapping("sent")
-    public ResponseEntity<EmailHeader[]> retrieveSent(@RequestParam(value = "userEmail") String userEmail){
-        String[] userEmailsIDS = this.userCache.retrieve(userEmail).getSentEmailsIds().toArray(new String[0]);
-        EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
-        Email[] userReceivedEmails = emailCache.retrieve(userEmailsIDS);
-        for (int i = 0; i < userEmailsIDS.length; i++)
-            headers[i] = userReceivedEmails[userEmailsIDS.length - 1 - i].createHeader();
-        return ResponseEntity.status(HttpStatus.OK).body(headers);
-    }
-
-    @GetMapping("trashed")
-    public ResponseEntity<EmailHeader[]> retrieveTrashed(@RequestParam(value = "userEmail") String userEmail){
-        String[] userEmailsIDS = this.userCache.retrieve(userEmail).getTrashEmailsIds().toArray(new String[0]);
-        EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
-        Email[] userReceivedEmails = emailCache.retrieve(userEmailsIDS);
-        for (int i = 0; i < userEmailsIDS.length; i++)
-            headers[i] = userReceivedEmails[userEmailsIDS.length - 1 - i].createHeader();
-        return ResponseEntity.status(HttpStatus.OK).body(headers);
-    }
-
-    @GetMapping("draft")
-    public ResponseEntity<EmailHeader[]> retrieveDraft(@RequestParam(value = "userEmail") String userEmail){
-        String[] userEmailsIDS = this.userCache.retrieve(userEmail).getDraftEmailsIds().toArray(new String[0]);
-        EmailHeader[] headers = new EmailHeader[userEmailsIDS.length];
-        Email[] userReceivedEmails = emailCache.retrieve(userEmailsIDS);
-        for (int i = 0; i < userEmailsIDS.length; i++)
-            headers[i] = userReceivedEmails[userEmailsIDS.length - 1 - i].createHeader();
-        return ResponseEntity.status(HttpStatus.OK).body(headers);
-    }
-
     @PostMapping("new")
     public ResponseEntity<String> createNewEmail(@RequestBody Email newEmail){
         newEmail.createId();
@@ -94,10 +79,45 @@ public class EmailService {
         return ResponseEntity.status(HttpStatus.OK).body("Email edited successfully!!!");
     }
 
-    @DeleteMapping("delete")
-    public ResponseEntity<String> deleteEmail(@RequestParam(value = "emailId") String emailId){
+    public ResponseEntity<String> deleteFromDB(String emailId){
         this.emailCache.delete(emailId);
         return new ResponseEntity<>("Email Deleted successfully!!!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteEmail(@RequestParam(value = "emailId") String emailId, @RequestParam(value = "userEmail") String userEmail){
+        Email email = this.emailCache.retrieve(emailId);
+        User user = this.userCache.retrieve(userEmail);
+        if(user.getReceivedEmailsIds().contains(emailId))
+            user.getReceivedEmailsIds().remove(emailId);
+        else if(user.getSentEmailsIds().contains(email.getId()))
+            user.getSentEmailsIds().remove(emailId);
+        else if(user.getDraftEmailsIds().contains(email.getId()))
+            user.getDraftEmailsIds().remove(emailId);
+        else if(user.getTrashEmailsIds().contains(email.getId()))
+            user.getTrashEmailsIds().remove(emailId);
+
+        this.userCache.update(user);
+        if(email.delete())
+            this.deleteFromDB(emailId);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Email Deleted successfully!!!");
+    }
+
+    @PutMapping("trash")
+    public ResponseEntity<String> trashEmail(@RequestParam(value = "emailId") String emailId, @RequestParam(value = "userEmail") String userEmail){
+        User user = this.userCache.retrieve(userEmail);
+        if(user.getReceivedEmailsIds().contains(emailId))
+            user.getReceivedEmailsIds().remove(emailId);
+        else if(user.getSentEmailsIds().contains(emailId))
+            user.getSentEmailsIds().remove(emailId);
+        else if(user.getDraftEmailsIds().contains(emailId))
+            user.getDraftEmailsIds().remove(emailId);
+
+        user.getTrashEmailsIds().add(emailId);
+
+        this.userCache.update(user);
+        return ResponseEntity.status(HttpStatus.OK).body("Email Deleted successfully!!!");
     }
 
 }

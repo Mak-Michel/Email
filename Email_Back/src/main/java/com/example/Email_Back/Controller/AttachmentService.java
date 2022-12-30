@@ -2,6 +2,8 @@ package com.example.Email_Back.Controller;
 
 import com.example.Email_Back.Model.Attachment.Attachment;
 import com.example.Email_Back.Model.Attachment.AttachmentHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.swing.*;
 import java.io.File;
@@ -9,7 +11,7 @@ import java.io.File;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/Attachments/")
+@RequestMapping("/attachments/")
 public class AttachmentService {
 
     AttachmentHandler currentHandler;
@@ -25,7 +27,7 @@ public class AttachmentService {
     }
 
     @GetMapping("open")
-    public String view() {
+    public ResponseEntity<String> view() {
         System.setProperty("java.awt.headless","false");
         String path = null;
         JFileChooser chooser = new JFileChooser();
@@ -35,9 +37,11 @@ public class AttachmentService {
             path = myFile.getPath();
             System.out.println(path);
         } catch (Exception e) {
-
+            //System.out.println(e.getMessage());
         }
-        return path;
+        currentHandler.LoadAttachment(ourAttachment);
+        currentHandler.SaveToDB(ourAttachment.getId());
+        return ResponseEntity.status(HttpStatus.FOUND).body(path);
     }
 
 }
