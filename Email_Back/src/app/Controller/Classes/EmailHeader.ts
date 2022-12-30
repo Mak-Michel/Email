@@ -1,8 +1,9 @@
-export class Email {
+export class EmailHeader {
     constructor(
-        public emailBody?: string,
+        public id?: string,
+        public headerBody?: string,
         public sender?: string,
-        public receivers?: string[],
+        public receiver?: string[],
         public subject?: string,
         public date?: number,
         public read?: boolean ){}

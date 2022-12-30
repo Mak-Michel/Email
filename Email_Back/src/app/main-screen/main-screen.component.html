@@ -1,0 +1,28 @@
+<body>
+  <div class="Grid-container">
+    <header>
+      <div id="title">
+        <img id="title-icon" src="https://cdn-icons-png.flaticon.com/512/324/324123.png">
+        <div id="title-text"> MY mail</div>
+      </div>
+      <div id="search-bar">
+        <input type="text" placeholder="Search.." id="search-text">
+        <button id="search-button">
+          <fa-icon style="color: white;" [icon]="Search"></fa-icon>
+        </button>
+      </div>
+    </header>
+    <aside>
+      <button id="Compose-button"  routerLink="/main-screen/compose">Compose <fa-icon style="color: red;" [icon]="Compose"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/inbox">Inbox <fa-icon style="color: red;" [icon]="Inbox"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/starred">Starred <fa-icon style="color: red;" [icon]="Starred"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/trash">Trash <fa-icon style="color: red;" [icon]="Trash"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/draft">Draft <fa-icon style="color: red;" [icon]="Draft"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/sent">Sent <fa-icon style="color: red;" [icon]="Sent"></fa-icon></button>
+      <button class="Menu-buttons" routerLink="/main-screen/contacts">Contacts <fa-icon style="color: red;" [icon]="Contacts"></fa-icon></button>
+    </aside>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</body>

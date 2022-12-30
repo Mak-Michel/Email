@@ -22,9 +22,5 @@ export class HttpService {
   putRequest(instruction: string, requestBody?: any): Observable<any> {
     return this.http.put(`${this._url}${instruction}`, requestBody);
   }
-  
-  deleteRequest(instruction: string): Observable<any> {
-    return this.http.delete(`${this._url}${instruction}`);
-  }
 
 }

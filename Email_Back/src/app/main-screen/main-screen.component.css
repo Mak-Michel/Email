@@ -1,0 +1,133 @@
+body {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+.Grid-container {
+  display: grid;
+  grid-template-rows: 75px 820px 50px;
+  grid-template-columns: 200px 100px;
+  grid-template-areas:
+  "top top top"
+  "sd cc cc"
+  "sd cc cc";
+}
+header {
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: top;
+  margin-left: 25px;
+}
+#title {
+  display: flex;
+  flex-wrap: wrap;
+}
+#title-icon {
+  margin-right: 10px;
+  width: 80px;
+  height: 70px;
+}
+#title-text {
+  margin-top: 25px;
+  font-family: fantasy;
+  color: white;
+}
+#search-bar {
+  height: 60px;
+  width: 500px;
+  margin: 22px;
+  margin-left: 50px;
+}
+#search-text {
+  width: 400px;
+  height: 30px;
+  margin: auto;
+  color: white;
+  background-color: #503d3d;
+}
+
+/*-----------------------------------------  Menu ---------------------------------------------------*/
+aside {
+  padding: 0px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  grid-area: sd;
+}
+aside button{
+  text-align: left;
+}
+#Compose-button {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  height: 60px;
+  width: 180px;
+  font-size: 18px;
+  font-family: Cursive;
+
+  background-color: black;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.6;
+}
+.Menu-buttons {
+  height: 50px;
+  font-size: 18px;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.6;
+}
+
+.Menu-buttons:hover , #Compose-button:hover{
+  opacity:1;
+}
+/*----------------------------------------------------------------------------------------------*/
+main {
+  grid-area: cc;
+  padding: 10px;
+  border: 5px solid black;
+  border-radius: 25px;
+  margin: 10px
+}
+/*----------------------------------------------------------------------------------------------*/
+
+/* Full-width input fields */
+input[type=text] {
+  margin: 5px 0 5px 0;
+  display: inline-block;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+#search-button {
+  height: 35px;
+  width: 60px;
+  margin-left: 5px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+#search-button:hover {
+  opacity:1;
+}
+
+#search-button:active {
+  transform: translateY(2px);
+}

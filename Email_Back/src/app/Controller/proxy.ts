@@ -40,7 +40,7 @@ export class proxy{
     }
 
     public trashEmail(emailId: string){
-        return this.http.putRequest(`email/trash?emailId=${emailId}&userEmail=${this.currentUser}`);
+        return this.http.deleteRequest(`email/trash?emailId=${emailId}&userEmail=${this.currentUser}`);
     }
 
     public addAttachment(){
