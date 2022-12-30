@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Email } from '../Classes/Email';
-import { User } from '../Classes/user';
+import { User } from '../Classes/User';
 import { HttpService } from '../Http/http.service';
 
 @Injectable({
@@ -10,10 +10,14 @@ export class ProxyService {
 
   constructor(private http: HttpService) { }
   
-  private currentUser: string;
+  private currentUser: string = "";
 
-  public setUser(user:  string){
+  public setUser(user: string){
     this.currentUser = user;
+  }
+
+  public getUser(){
+    return this.currentUser;
   }
 
   public signIn(userEmail: string, password: string){

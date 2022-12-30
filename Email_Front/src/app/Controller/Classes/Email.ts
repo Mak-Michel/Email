@@ -5,5 +5,6 @@ export class Email {
         public receivers?: string[],
         public subject?: string,
         public date?: number,
-        public read?: boolean ){}
+        public read?: boolean
+    ) { }
 }

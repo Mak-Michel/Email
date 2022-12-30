@@ -47,7 +47,6 @@ public class UserService {
 
     @PutMapping("signOut")
     public ResponseEntity<String> signOut(@RequestParam(value = "userEmail") String userEmail) {
-        System.out.println("sdad");
         this.userCache.remove(userEmail);
         return ResponseEntity.status(HttpStatus.OK).body("Signed Out successfully!!");
     }

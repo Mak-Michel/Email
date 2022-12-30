@@ -11,13 +11,11 @@ import { ProxyService } from './Controller/Proxy/proxy.service';
 export class AppComponent {
   title = 'mail';
 
-  constructor(private router: Router, private proxy: ProxyService) { }
+  constructor(private proxy: ProxyService) { }
 
   @HostListener('window:beforeunload', [ '$event' ])
   beforeUnloadHandler(event) {
-    console.log("dsf")
     this.proxy.signOut().pipe(take(1)).subscribe();
-    this.router.navigate(["/registeration/signin"]);
     event.preventDefault();
     event.returnValue = '';
   }
