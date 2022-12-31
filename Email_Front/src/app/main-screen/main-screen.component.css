@@ -47,6 +47,87 @@ header {
   background-color: #503d3d;
 }
 
+/*---------------------------------------------- Search section ------------------------*/
+#search-section {
+  height: 20px;
+  width: 600px;
+  margin: 22px;
+  margin-left: 50px;
+}
+#search-text {
+  width: 400px;
+  height: 30px;
+  margin: auto;
+  color: white;
+  background-color: #503d3d;
+}
+#search-text:focus {
+  background-color: #503d3d36;
+}
+#search-button {
+  height: 35px;
+  width: 60px;
+  margin-left: 5px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+#search-button:hover {
+  opacity:1;
+}
+
+#search-button:active {
+  transform: translateY(2px);
+}
+
+/*------------------------------------Sort section & filter section-----------------------------------*/
+#sort-section , #filter-section ,#LogOut{
+  height: 20px;
+  margin: 22px;
+  margin-left: 50px;
+}
+label {
+  color: white;
+  font-family: cursive;
+}
+.selection-list {
+  height: 35px;
+  margin-left: 5px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+.selection-list:hover{
+  opacity: 1;
+}
+
+#LogOut-button {
+  height: 35px;
+  width: 60px;
+  margin-left: 450px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+#LogOut-button:hover {
+  opacity:1;
+}
+
+#LogOut-button:active {
+  transform: translateY(2px);
+}
+
 /*-----------------------------------------  Menu ---------------------------------------------------*/
 aside {
   padding: 0px 10px 10px;
@@ -89,6 +170,9 @@ aside button{
 .Menu-buttons:hover , #Compose-button:hover{
   opacity:1;
 }
+#c-Folders-buttons {
+  margin-top: 10px;
+}
 /*----------------------------------------------------------------------------------------------*/
 main {
   grid-area: cc;
@@ -112,22 +196,3 @@ input[type=text]:focus{
   outline: none;
 }
 
-#search-button {
-  height: 35px;
-  width: 60px;
-  margin-left: 5px;
-  border-radius: 5%;
-  font-family: Cursive;
-  background-color: black;
-  color: white;
-  cursor: pointer;
-  opacity: 0.65;
-}
-
-#search-button:hover {
-  opacity:1;
-}
-
-#search-button:active {
-  transform: translateY(2px);
-}

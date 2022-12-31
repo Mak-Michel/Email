@@ -7,7 +7,8 @@ import {faBookOpen} from '@fortawesome/free-solid-svg-icons'
 import {faTelegramPlane} from '@fortawesome/free-brands-svg-icons'
 import {faAddressBook} from '@fortawesome/free-solid-svg-icons'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
-import {faAlignRight} from '@fortawesome/free-solid-svg-icons'
+import {faFolderPlus} from '@fortawesome/free-solid-svg-icons'
+import {faFolder} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-main-screen',
@@ -24,5 +25,6 @@ export class MainScreenComponent {
   Sent = faTelegramPlane;
   Contacts = faAddressBook;
   Search = faSearch;
-
+  NewFolder = faFolderPlus;
+  Folders = faFolder;
 }

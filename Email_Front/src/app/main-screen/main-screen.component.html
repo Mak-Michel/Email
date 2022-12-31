@@ -5,21 +5,57 @@
         <img id="title-icon" src="https://cdn-icons-png.flaticon.com/512/324/324123.png">
         <div id="title-text"> MY mail</div>
       </div>
-      <div id="search-bar">
+      <div id="search-section">
         <input type="text" placeholder="Search.." id="search-text">
+        <select name="search-list" class="selection-list">
+          <option value="Attachments">Attachments</option>
+          <option value="Body" selected>Body</option>
+          <option value="Date">Date</option>
+          <option value="Importance">Importance</option>
+          <option value="Sender">Sender</option>
+          <option value="Subject">Subject</option>
+          <option value="Receivers">Receivers</option>
+        </select>
         <button id="search-button">
           <fa-icon style="color: white;" [icon]="Search"></fa-icon>
         </button>
+      </div>
+      <div id="sort-section">
+        <label>Sort:</label>
+        <select name="search-list" class="selection-list">
+          <option value="Attachments">Attachments</option>
+          <option value="Body" selected>Body</option>
+          <option value="Date">Date</option>
+          <option value="Importance">Importance</option>
+          <option value="Sender">Sender</option>
+          <option value="Subject">Subject</option>
+          <option value="Receivers">Receivers</option>
+        </select>
+      </div>
+      <div id="filter-section">
+        <label>Filter:</label>
+        <select name="search-list" class="selection-list">
+          <option value="Attachments">Attachments</option>      <!--number of attachments-->
+          <option value="Date">Date</option>
+          <option value="Importance">Importance</option>
+          <option value="Sender">Sender</option>
+          <option value="Subject">Subject</option>
+          <option value="Receivers">Receivers</option>
+        </select>
+      </div>
+      <div id="LogOut">
+        <button id="LogOut-button">LogOut</button>   <!--hna han7ot method on click tb3t ll back t2olo etl3 5als w n3ml routing fi ts-->
       </div>
     </header>
     <aside>
       <button id="Compose-button"  routerLink="/main-screen/compose">Compose <fa-icon style="color: red;" [icon]="Compose"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/inbox">Inbox <fa-icon style="color: red;" [icon]="Inbox"></fa-icon></button>
-      <button class="Menu-buttons" routerLink="/main-screen/starred">Starred <fa-icon style="color: red;" [icon]="Starred"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/trash">Trash <fa-icon style="color: red;" [icon]="Trash"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/draft">Draft <fa-icon style="color: red;" [icon]="Draft"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/sent">Sent <fa-icon style="color: red;" [icon]="Sent"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/contacts">Contacts <fa-icon style="color: red;" [icon]="Contacts"></fa-icon></button>
+      <button class="Menu-buttons" id="c-Folders-buttons" routerLink="/main-screen/create-folder">Create folder <fa-icon style="color: red;" [icon]="NewFolder"></fa-icon></button>
+      <button class="Menu-buttons" id="s-Folders-buttons" routerLink="/main-screen/show-folders">Show folders <fa-icon style="color: red;" [icon]="Folders"></fa-icon></button>
     </aside>
     <main>
       <router-outlet></router-outlet>

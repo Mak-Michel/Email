@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
 import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-inbox',
@@ -11,6 +12,11 @@ import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 export class InboxComponent {
 
   headers: EmailHeader[] = [];
+  
+  //// Mak
+  Trash = faTrashAlt;
+  p: number = 1;
+  /////
 
   constructor(router: Router, proxy: ProxyService) {
     if(proxy.getUser() == "") {

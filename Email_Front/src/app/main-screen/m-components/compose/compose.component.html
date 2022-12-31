@@ -1,1 +1,18 @@
-<p>compose works!</p>
+<form action="/action_page.php">
+  <fieldset>
+    <legend>New message:</legend>
+    <label>To:</label><input id="To-input" type="text"><hr>
+    <label>Subject:</label> <input id="Subject-input" type="text"><hr>
+    <label> Priority:</label> <select name="Priority" id="Priority">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select><hr>
+    <textarea name="message" rows="42" cols="215"></textarea>
+    <button type="button" id="attachments-button">Attachments <fa-icon [icon]="paperClip" style="color: red;"></fa-icon></button>
+    <button type="button" id="send-button">Send <fa-icon [icon]="send" style="color: red;"></fa-icon></button>
+    <button type="button" id="draft-button">Save as a Draft <fa-icon [icon]="save" style="color: red;"></fa-icon></button>
+  </fieldset>
+</form>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
 import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sent',
@@ -12,11 +13,17 @@ export class SentComponent {
 //   window.addEventListener('beforeunload', function (event) {
 //     if (performance.navigation.type == 1) {
 //       document.write('Window was refreshed!');
-//     } 
+//     }
 //     else {
 //       document.write('Window was closed!');
 //     }
 // });
+
+  //// Mak
+  Trash = faTrashAlt;
+  p: number = 1;
+  /////
+
   headers: EmailHeader[] = [];
 
   constructor(router: Router, proxy: ProxyService) {

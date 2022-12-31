@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'registeration' , component: RegisterationComponent ,
     children:[
-      { path: '' , redirectTo: '/registeration/login' , pathMatch: 'full' },    // if path: '' redirect to signup
+      { path: '' , redirectTo: '/registeration/signup' , pathMatch: 'full' },    // if path: '' redirect to signup
       { path: 'signup' , component: SignupComponent },
       { path: 'login' , component: LoginComponent }
     ]
