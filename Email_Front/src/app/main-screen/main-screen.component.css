@@ -173,6 +173,9 @@ aside button{
 #c-Folders-buttons {
   margin-top: 10px;
 }
+#add-contact-button {
+  margin-top: 10px;
+}
 /*----------------------------------------------------------------------------------------------*/
 main {
   grid-area: cc;

@@ -1,0 +1,40 @@
+input {
+  display: inline-block;
+  background: #f1f1f1;
+  border-color: #f1f1f1d4;
+}
+
+input:focus {
+  background-color: #ddd;
+}
+
+.Name-input {
+  width: 1550px;
+}
+
+label {
+  color: white;
+}
+
+legend {
+  color: white;
+  border-color: white;
+}
+
+button {
+  border: none;
+  float: right;
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 6px 20px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+button:hover {
+  opacity: 1;
+}
+

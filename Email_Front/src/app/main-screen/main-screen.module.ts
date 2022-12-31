@@ -16,6 +16,8 @@ import { FoldersComponent } from './m-components/show-folders/folders/folders.co
 import { CreateFolderComponent } from './m-components/create-folder/create-folder.component';
 import { Button2Component } from './m-components/show-folders/folders/button2/button2.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AddContactComponent } from './m-components/add-contact/add-contact.component';
+import { Button3Component } from './m-components/contacts/button3/button3.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FoldersComponent,
     CreateFolderComponent,
     Button2Component,
+    AddContactComponent,
+    Button3Component,
   ],
   imports: [
     CommonModule,

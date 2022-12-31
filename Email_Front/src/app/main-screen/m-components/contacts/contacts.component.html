@@ -1,1 +1,13 @@
-<p>contacts works!</p>
+
+<!--<app-button *ngFor="let contact of contacts | paginate: {itemsPerPage: 14 , currentPage: p}" [header]="header"></app-button>-->
+<app-button3></app-button3>
+<div id="tools">
+  <!--<div id="pagination">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>-->
+  <div id="action-div">
+    <button>Save <fa-icon [icon]="Save"></fa-icon></button>
+    <button>Edit <fa-icon [icon]="Edit"></fa-icon></button>
+    <button>Delete <fa-icon [icon]="Trash"></fa-icon></button>
+  </div>
+</div>

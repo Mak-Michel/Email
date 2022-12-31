@@ -6,6 +6,7 @@ import { TrashComponent } from './m-components/trash/trash.component';
 import { SentComponent } from './m-components/sent/sent.component';
 import { DraftComponent } from './m-components/draft/draft.component';
 import { ComposeComponent } from './m-components/compose/compose.component';
+import { AddContactComponent } from './m-components/add-contact/add-contact.component';
 import { ContactsComponent } from './m-components/contacts/contacts.component';
 import { ShowFoldersComponent } from './m-components/show-folders/show-folders.component';
 import { CreateFolderComponent } from './m-components/create-folder/create-folder.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'sent', component: SentComponent },
       { path: 'draft', component: DraftComponent },
       { path: 'compose', component: ComposeComponent },
+      { path: 'add-contact', component: AddContactComponent },
       { path: 'contacts', component: ContactsComponent },
       { path: 'create-folder', component: CreateFolderComponent },
       { path: 'show-folders', component: ShowFoldersComponent },

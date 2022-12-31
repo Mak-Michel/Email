@@ -1,3 +1,4 @@
+import { faTrashAlt, faSave, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent {
+
+  Trash = faTrashAlt;
+  Save = faSave;
+  Edit = faEdit;
 
 }
