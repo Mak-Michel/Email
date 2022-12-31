@@ -1,9 +1,10 @@
-<app-button *ngFor="let header of headers | paginate: {itemsPerPage: 14 , currentPage: p}" [header]="header"></app-button>
+<div class="headerList" style="height: 94.5%;">
+  <app-button *ngFor="let header of headers | paginate: {itemsPerPage: 14 , currentPage: p}" [header]="header"></app-button>
+</div>
 <div id="tools">
-  <div id="pagination">
+  <div id="pagination" style="width: 91.5%;">
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
-  <div id="delete-div">
-    <button>Delete <fa-icon [icon]="Trash"></fa-icon></button>
-  </div>
+
+  <button id="delete-button"><fa-icon [icon]="Trash"></fa-icon></button>
 </div>

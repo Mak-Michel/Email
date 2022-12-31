@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
 import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -26,11 +25,7 @@ export class SentComponent {
 
   headers: EmailHeader[] = [];
 
-  constructor(router: Router, proxy: ProxyService) {
-    if(proxy.getUser() == "") {
-      router.navigate(["/registeration/login"]);
-      return;
-    }
+  constructor(proxy: ProxyService) {
     proxy.getEmailList("sent").
     subscribe(
       data => {

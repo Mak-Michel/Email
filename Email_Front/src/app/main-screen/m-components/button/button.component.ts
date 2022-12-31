@@ -24,4 +24,9 @@ export class ButtonComponent implements OnInit {
     this.onClick.emit("");
   }
 
+  public select(){
+    this.emailHeader.selected = !this.emailHeader.selected;
+    console.log(this.emailHeader.selected)
+  }
+
 }

@@ -14,12 +14,10 @@ export class LoginComponent {
   private email: string = "";
   private password: string = "";
 
-  getEmail(email : any)
-  {
+  getEmail(email : any) {
     this.email = email.target.value;
   }
-  getPassword(password : any)
-  {
+  getPassword(password : any) {
     this.password = password.target.value;
   }
 

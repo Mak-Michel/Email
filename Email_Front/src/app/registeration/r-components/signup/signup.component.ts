@@ -15,16 +15,13 @@ export class SignupComponent {
   private email: string = "";
   private password: string = "";
 
-  getName(name : any)
-  {
+  getName(name : any) {
     this.name = name.target.value;
   }
-  getEmail(email : any)
-  {
+  getEmail(email : any) {
     this.email = email.target.value;
   }
-  getPassword(password : any)
-  {
+  getPassword(password : any) {
     this.password = password.target.value;
   }
 
