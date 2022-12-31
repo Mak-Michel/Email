@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Email } from '../Classes/Email';
-import { User } from '../Classes/User';
+import { User } from '../Classes/user';
 import { HttpService } from '../Http/http.service';
 
 @Injectable({
@@ -8,7 +9,12 @@ import { HttpService } from '../Http/http.service';
 })
 export class ProxyService {
 
-  constructor(private http: HttpService) { }
+  constructor(router: Router, private http: HttpService) {
+    if(this.currentUser == "") {
+      router.navigate(["/registeration/login"]);
+      return;
+    }
+  }
   
   private currentUser: string = "";
 
