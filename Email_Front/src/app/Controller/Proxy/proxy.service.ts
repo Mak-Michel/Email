@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Email } from '../Classes/Email';
-import { User } from '../Classes/user';
+import { User } from '../Classes/User';
 import { HttpService } from '../Http/http.service';
 
 @Injectable({
