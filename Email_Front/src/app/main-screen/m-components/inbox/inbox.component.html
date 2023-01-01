@@ -6,5 +6,5 @@
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 
-  <button id="delete-button"><fa-icon [icon]="Trash"></fa-icon></button>
+  <button id="delete-button" (mouseup)="delete()"><fa-icon [icon]="Trash"></fa-icon></button>
 </div>

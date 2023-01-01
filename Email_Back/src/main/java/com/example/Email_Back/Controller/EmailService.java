@@ -106,7 +106,9 @@ public class EmailService {
     }
 
     @PutMapping("trash")
-    public ResponseEntity<String> trashEmail(@RequestParam(value = "emailId") String emailId, @RequestParam(value = "userEmail") String userEmail){
+    public ResponseEntity<String> trashEmail(@RequestBody String[] container){
+        String emailId = container[0], userEmail = container[1];
+        System.out.println(emailId + " " + userEmail);
         User user = this.userCache.retrieve(userEmail);
         if(user.getReceivedEmailsIds().contains(emailId))
             user.getReceivedEmailsIds().remove(emailId);

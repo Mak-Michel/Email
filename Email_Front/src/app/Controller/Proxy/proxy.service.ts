@@ -42,8 +42,10 @@ export class ProxyService {
     return this.http.getRequest(`email/list?userEmail=${this.currentUser}&listType=${emailType}`)
   }
 
-  public createNewEmail(email: Email){
-    return this.http.postRequest("email/new", email);
+  public createNewEmail(body: string, to: string, subject: string, priority: number){
+    let receivers: string[] = to.split(/[\s,]+/);
+    let newEmail = new Email(body, this.currentUser, receivers, subject, 1012023, false, priority) //TODO date format
+    return this.http.postRequest("email/new", newEmail);
   }
 
   public editEmail(email: Email){
@@ -55,7 +57,7 @@ export class ProxyService {
   }
 
   public trashEmail(emailId: string){
-    return this.http.putRequest(`email/trash?emailId=${emailId}&userEmail=${this.currentUser}`);
+    return this.http.putRequest("email/trash", [emailId, this.currentUser]);
   }
 
   public addAttachment(){
@@ -75,6 +77,7 @@ export class ProxyService {
   }
 
   public signOut(){
+    this.currentUser="";
     return this.http.putRequest(`user/signOut?userEmail=${this.currentUser}`)
   }
 
@@ -85,4 +88,5 @@ export class ProxyService {
   public sortContacts(){
     return this.http.getRequest("");
   }
+
 }

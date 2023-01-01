@@ -24,7 +24,7 @@ export class HttpService {
   }
 
   putRequest(instruction: string, requestBody?: any): Observable<any> {
-    return this.http.put(`${this._url}${instruction}`, requestBody);
+    return this.http.put(`${this._url}${instruction}`, requestBody, {responseType: 'text'});
   }
 
 }

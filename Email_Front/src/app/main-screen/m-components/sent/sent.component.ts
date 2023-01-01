@@ -25,13 +25,30 @@ export class SentComponent {
 
   headers: EmailHeader[] = [];
 
-  constructor(proxy: ProxyService) {
+  constructor(private proxy: ProxyService) {
     proxy.getEmailList("sent").
     subscribe(
       data => {
         this.headers = JSON.parse(data);
       }
     )
+  }
+
+  delete() {
+    for(let header of this.headers) {
+      if(header.selected) {
+        this.proxy.trashEmail(header.id).
+        subscribe({
+          next: (data) => {
+            alert(data);
+          },
+          error(err) {
+            alert(err.message)
+          }
+        });
+      }
+    }
+    
   }
 
 }
