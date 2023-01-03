@@ -1,9 +1,9 @@
 <div class="parent">
   <input id="select" type="checkbox" (click)="select()">
-  <button class="headerButton" (click)="returnId()">
+  <button class="headerButton" routerLink="/main-screen/{{this.router}}/{{this.emailHeader.id}}">
     <div [style.font-weight]="this.emailHeader?.read ? '' : 'bold'" id="sender">{{this.emailHeader?.sender}}</div>
     <div [style.font-weight]="this.emailHeader?.read ? '' : 'bold'" id="subject">{{this.emailHeader?.subject}}</div> 
     <div id="headerBody">{{this.emailHeader?.headerBody}}</div>
-    <div [style.font-weight]="this.emailHeader?.read ? '' : 'bold'" id="date">{{this.emailHeader?.date}}</div>
+    <div [style.font-weight]="this.emailHeader?.read ? '' : 'bold'" id="date">{{this.emailHeader?.date}}</div>  
 </button>
 </div>

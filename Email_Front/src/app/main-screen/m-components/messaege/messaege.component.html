@@ -1,0 +1,15 @@
+
+<body style="background-color: rgba(0, 0, 0, 0.65);">
+  <fieldset>
+    <legend></legend>
+    <label>From: {{this.email.sender}}</label>
+    <hr />
+    <label>Subject: {{this.email.subject}}</label>
+    <hr />
+    <label> Priority: {{this.email.priority}}</label>
+    <hr />
+    <div id="Email-body">
+      {{this.email.emailBody}}
+    </div>
+  </fieldset>
+</body>

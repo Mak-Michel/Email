@@ -11,7 +11,8 @@ import {faFolderPlus} from '@fortawesome/free-solid-svg-icons'
 import {faFolder} from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router';
 import { ProxyService } from '../Controller/Proxy/proxy.service';
-import { take } from 'rxjs';
+import { last, take } from 'rxjs';
+
 
 @Component({
   selector: 'app-main-screen',
@@ -31,13 +32,28 @@ export class MainScreenComponent {
   NewFolder = faFolderPlus;
   Folders = faFolder;
 
-  constructor(private router: Router, private proxy: ProxyService) { }
-
-  
+  constructor(private router: Router, public proxy: ProxyService) {
+    proxy.getFolderList().
+    subscribe(
+      data => {
+        proxy.setFolders(JSON.parse(data));
+      }
+    )
+  }
 
   public logOut() {
     this.proxy.signOut().pipe(take(1)).subscribe();
     this.router.navigate(["/registeration/login"]);
   }
+
+  sort(event: any) {
+    let sortType = event.target.value.toLowerCase();
+    console.log(sortType);
+    let emailType = this.router.url.split("/")[2];
+    console.log("sortType");
+    this.router.navigate(["/main-screen/" + emailType + "/sort/" + sortType]);
+  }
+
+  
 
 }

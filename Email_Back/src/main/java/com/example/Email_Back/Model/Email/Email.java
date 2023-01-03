@@ -5,20 +5,32 @@ import com.example.Email_Back.Utils.RandomGenerator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 @Scope("prototype")
 public class Email implements Cacheable {
+    private int importance;
     private String id;
     private String emailBody;
     private int date;
     private String sender;
-    private String[] receivers;
+    private ArrayList<String> receivers;
     private String subject;
-    private String[] attachments_IDS;
+    private ArrayList<String> attachments_IDS;
 
+    private int priority;
     private char counter = 0;
 
     private boolean read;
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
 
     public void setEmailProperties(Email email){
         this.id = RandomGenerator.generateId();
@@ -31,7 +43,8 @@ public class Email implements Cacheable {
         this.read = false;
     }
 
-    public void setEmailProperties(String id, String emailBody, int date, String sender, String[] receivers, String subject, String[] attachments_IDS) {
+    public void setEmailProperties(String id, String emailBody, int date, String sender, ArrayList<String> receivers, String subject, ArrayList<String> attachments_IDS) {
+        this.importance = importance;
         this.id = id;
         this.emailBody = emailBody;
         this.date = date;
@@ -53,6 +66,9 @@ public class Email implements Cacheable {
         return emailBody;
     }
 
+    public void setDate(int date) {
+        this.date =  date;
+    }
     public int getDate() {
         return date;
     }
@@ -61,7 +77,7 @@ public class Email implements Cacheable {
         return sender;
     }
 
-    public String[] getReceivers() {
+    public ArrayList<String> getReceivers() {
         return receivers;
     }
 
@@ -69,7 +85,7 @@ public class Email implements Cacheable {
         return subject;
     }
 
-    public String[] getAttachments_IDS() {
+    public ArrayList<String> getAttachments_IDS() {
         return attachments_IDS;
     }
 
@@ -92,10 +108,32 @@ public class Email implements Cacheable {
 
     public boolean delete(){
         this.counter++;
-        return counter == this.receivers.length + 1;
+        return counter == this.receivers.size() + 1;
     }
 
     public char getCounter() {
         return counter;
     }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "id='" + id + '\'' +
+                ", emailBody='" + emailBody + '\'' +
+                ", date=" + date +
+                ", sender='" + sender + '\'' +
+                ", receivers=" + receivers +
+                ", subject='" + subject + '\'' +
+                ", attachments_IDS=" + attachments_IDS +
+                ", priority=" + priority +
+                ", counter=" + counter +
+                ", read=" + read +
+                '}';
+    }
+    public int getImportance() { return importance; }
+
+    public void setImportance(int importance) { this.importance = importance; }
+
+    public int getNumberOfReceivers() { return receivers.size(); }
+    public int getNumberOfAttachments() { return attachments_IDS.size(); }
 }

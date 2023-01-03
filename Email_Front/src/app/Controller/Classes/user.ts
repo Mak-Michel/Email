@@ -7,6 +7,7 @@ export class User {
         public receivedEmailsIds?: string[],
         public trashEmailsIds?: string[],
         public draftEmailsIds?: string[],
-        public contacts?: Map<string, string>
+        public contacts?: Map<string, string>,
+        public folders?: Map<string, string[]>
     ) { } 
 }

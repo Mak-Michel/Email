@@ -4,7 +4,6 @@ import com.example.Email_Back.Model.Caches.Threads.EmptyBuffer;
 import com.example.Email_Back.Model.Caches.Threads.FreeCacheSpace;
 import com.example.Email_Back.Model.Email.Email;
 import com.example.Email_Back.Model.Gateways.EmailGateway;
-import com.example.Email_Back.Model.Gateways.Gateway;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -14,6 +13,8 @@ import java.util.Queue;
 @Component
 public class EmailCache{
 
+    private EmptyBuffer emptyBuffer = new EmptyBuffer();
+    private FreeCacheSpace freeCacheSpace = new FreeCacheSpace();
     private HashMap<String, CacheBlock> cache = new HashMap<>();
     private Queue<String> buffer = new LinkedList<>();
 
@@ -35,8 +36,7 @@ public class EmailCache{
     }
 
     public void saveDBContents(){
-        database.saveAll();
-        database.closeMemory();
+        this.emptyBuffer.empty(this.cache, this.buffer, this.database);
     }
 
     public Email retrieve(String emailId){
@@ -98,17 +98,14 @@ public class EmailCache{
     }
 
     public void bufferManager(){
-        if(this.buffer.size() >= this.maxBufferSize) {
-            EmptyBuffer emptyBuffer = new EmptyBuffer(this.cache, this.buffer, this.database);
-            emptyBuffer.start();
-        }
+        if(this.buffer.size() >= this.maxBufferSize)
+            this.emptyBuffer.empty(this.cache, this.buffer, this.database);
     }
 
     public void cacheManager(){
-        if(this.cache.size() >= this.maxSize) {
-            FreeCacheSpace freeCacheSpace = new FreeCacheSpace(this.cache);
-            freeCacheSpace.start();
-        }
+        if(this.cache.size() >= this.maxSize)
+            this.freeCacheSpace.free(this.cache);
+
     }
 
 }

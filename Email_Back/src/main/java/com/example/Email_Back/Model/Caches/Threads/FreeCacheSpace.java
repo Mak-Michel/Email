@@ -7,22 +7,17 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class FreeCacheSpace extends Thread{
-    private HashMap<String, CacheBlock> cache;
-    private Queue<CacheBlock> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a.counter));
+public class FreeCacheSpace{
 
-    public FreeCacheSpace(HashMap<String, CacheBlock> cache){
-        this.cache = cache;
-    }
-    @Override
-    public void run(){
+    public void free(HashMap<String, CacheBlock> cache){
+        Queue<CacheBlock> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a.counter));
         for(HashMap.Entry<String, CacheBlock> set : cache.entrySet())
             pq.add(set.getValue());
         int counter = 20;
         while (counter != 0 && !pq.isEmpty()){
             CacheBlock front = pq.poll();
             if(!front.dirty) {
-                this.cache.remove(front.cachedObject.getId());
+                cache.remove(front.cachedObject.getId());
                 counter--;
             }
         }

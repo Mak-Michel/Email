@@ -1,5 +1,6 @@
 export class Email {
     constructor(
+        public id?: string,
         public emailBody?: string,
         public sender?: string,
         public receivers?: string[],

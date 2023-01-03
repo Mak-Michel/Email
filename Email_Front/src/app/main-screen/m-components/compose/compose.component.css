@@ -42,3 +42,16 @@ fieldset {
   border-color: white;
   color: white;
 }
+#attachments-button {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 6px 20px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+#attachments-button:hover {
+  opacity: 1;
+}

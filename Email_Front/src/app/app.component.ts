@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ProxyService } from './Controller/Proxy/proxy.service';
 

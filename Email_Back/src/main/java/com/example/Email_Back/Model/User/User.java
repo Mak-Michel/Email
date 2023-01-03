@@ -15,10 +15,20 @@ public class User implements Cacheable {
     private ArrayList<String> draftEmailsIds = new ArrayList<>();
     private HashMap<String, Contact> contacts = new HashMap<>();
 
+    private HashMap<String, ArrayList<String>> folders = new HashMap<>();
+
     public void setUserProperties (String name, String id, String userPassword) {
         this.name = name;
         this.id = id;
         this.userPassword = userPassword;
+    }
+
+    public HashMap<String, ArrayList<String>> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(HashMap<String, ArrayList<String>> folders) {
+        this.folders = folders;
     }
 
     public String getName() {
@@ -108,14 +118,84 @@ public class User implements Cacheable {
     }
 
     public void addContact(String name, String email) {
-        if(getContacts().containsKey(name))
-            getContacts().get(getContacts().get(name)).addUserEmail(email);
+        if(contacts.containsKey(name))
+            contacts.get(name).addUserEmail(email);
         else
             getContacts().put(name, new Contact(name, email));
     }
 
+    public void editContact(Contact editedContact) {
+        if(contacts.containsKey(editedContact.getName()))
+            contacts.put(editedContact.getName(), editedContact);
+        if(editedContact.getUserEmails().size() == 0)
+            contacts.remove(editedContact.getName());
+    }
+
     public void forwardEmail() {
         //TODO prototype
+    }
+
+    public void addNewFolder(String folderName){
+        if(this.folders.containsKey(folderName))
+            return;
+        this.folders.put(folderName, new ArrayList<String>());
+    }
+
+    public void deleteFolder(String folderName){
+        if(!this.folders.containsKey(folderName))
+            return;
+        this.folders.remove(folderName);
+    }
+
+    public boolean moveEmail(String sourceFolder, String destinationFolder, String emailId){
+        switch (destinationFolder) {
+            case "Inbox" -> {
+                this.getReceivedEmailsIds().add(emailId);
+                System.out.println("moved To Inbox");
+            }
+            case "Sent" -> {
+                this.getSentEmailsIds().add(emailId);
+                System.out.println("moved to Sent");
+            }
+            case "Trash" -> {
+                this.getTrashEmailsIds().add(emailId);
+                System.out.println("moved to Trash");
+            }
+            case "Draft" -> {
+                this.getDraftEmailsIds().add(emailId);
+                System.out.println("moved to Draft");
+            }
+            default -> {
+                if(!this.folders.containsKey(destinationFolder))
+                    return false;
+                System.out.println("moved to " + destinationFolder);
+                this.folders.get(destinationFolder).add(emailId);
+            }
+        }
+        switch (sourceFolder) {
+            case "Inbox" -> {
+                this.getReceivedEmailsIds().remove(emailId);
+                System.out.println("moved from Inbox");
+            }
+            case "Sent" -> {
+                this.getSentEmailsIds().remove(emailId);
+                System.out.println("moved from Sent");
+            }
+            case "Trash" -> {
+                this.getTrashEmailsIds().remove(emailId);
+                System.out.println("moved from Trash");
+            }
+            case "Draft" -> {
+                this.getDraftEmailsIds().remove(emailId);
+                System.out.println("moved from Draft");
+            }
+            default -> {
+                if(!this.folders.containsKey(sourceFolder))
+                    return false;
+                this.folders.get(sourceFolder).remove(emailId);
+            }
+        }
+        return true;
     }
 
 }

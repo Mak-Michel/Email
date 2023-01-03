@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { EmailHeader } from 'src/app/Controller/Classes/EmailHeader';
 import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-draft',
@@ -10,31 +12,19 @@ import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
 export class DraftComponent {
 
   headers: EmailHeader[] = [];
+  
+  //// Mak
+  Trash = faTrashAlt;
+  p: number = 1;
+  /////
 
-  constructor(private proxy: ProxyService) {
+  constructor(router: Router, proxy: ProxyService) {
     proxy.getEmailList("draft").
     subscribe(
       data => {
+        alert(data)
         this.headers = JSON.parse(data);
       }
     )
   }
-
-  delete() {
-    for(let header of this.headers) {
-      if(header.selected) {
-        this.proxy.trashEmail(header.id).
-        subscribe({
-          next: (data) => {
-            alert(data);
-          },
-          error(err) {
-            alert(err.message)
-          }
-        });
-      }
-    }
-    
-  }
-
 }

@@ -11,7 +11,7 @@ import { ProxyService } from './Controller/Proxy/proxy.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -39,5 +39,13 @@ button:hover {
   width: 20%;
 }
 
+#delete-button{
+  transform: scale(1.2);
+}
+
+#delete-button:active{
+  transform: scale(1.1);
+}
+
 
 

@@ -22,10 +22,10 @@
       </div>
       <div id="sort-section">
         <label>Sort:</label>
-        <select name="search-list" class="selection-list">
+        <select name="search-list" class="selection-list" (change)="sort($event)">
           <option value="Attachments">Attachments</option>
-          <option value="Body" selected>Body</option>
-          <option value="Date">Date</option>
+          <option value="Body">Body</option>
+          <option value="Date" selected>Date</option>
           <option value="Importance">Importance</option>
           <option value="Sender">Sender</option>
           <option value="Subject">Subject</option>
@@ -56,7 +56,9 @@
       <button class="Menu-buttons" id="add-contact-button" routerLink="/main-screen/add-contact">Add contact <fa-icon style="color: red;" [icon]="Contacts"></fa-icon></button>
       <button class="Menu-buttons" routerLink="/main-screen/contacts">Contacts <fa-icon style="color: red;" [icon]="Contacts"></fa-icon></button>
       <button class="Menu-buttons" id="c-Folders-buttons" routerLink="/main-screen/create-folder">Create folder <fa-icon style="color: red;" [icon]="NewFolder"></fa-icon></button>
-      <button class="Menu-buttons" id="s-Folders-buttons" routerLink="/main-screen/show-folders">Show folders <fa-icon style="color: red;" [icon]="Folders"></fa-icon></button>
+      <hr style="width: 80%;">
+      <button class="Folder-buttons" id="s-Folders-buttons" *ngFor="let folder of this.proxy.getFolders()" routerLink="/main-screen/folder/{{folder}}" ><fa-icon style="color: red;" [icon]="Folders"></fa-icon>           {{folder}}</button>
+    
     </aside>
     <main>
       <router-outlet></router-outlet>

@@ -143,7 +143,7 @@ aside button{
   margin-bottom: 5px;
   height: 60px;
   width: 180px;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Cursive;
 
   background-color: black;
@@ -154,9 +154,18 @@ aside button{
   width: 100%;
   opacity: 0.6;
 }
-.Menu-buttons {
+.Folder-buttons{
+  display: flex;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+.Folder-buttons::-webkit-scrollbar {
+  display: none;
+  transform: rotate(-90deg);
+}
+.Menu-buttons, .Folder-buttons {
   height: 50px;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Cursive;
   background-color: black;
   color: white;
@@ -167,7 +176,7 @@ aside button{
   opacity: 0.6;
 }
 
-.Menu-buttons:hover , #Compose-button:hover{
+.Menu-buttons:hover , #Compose-button:hover, .Folder-buttons{
   opacity:1;
 }
 #c-Folders-buttons {

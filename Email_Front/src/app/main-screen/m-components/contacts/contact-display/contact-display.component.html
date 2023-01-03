@@ -1,0 +1,10 @@
+<div class="contact-display">
+    <h1>{{contactName}}</h1>
+    <div *ngFor="let email of contact.userEmails">
+        <div class="contact-list">
+            <p id="contact-email">{{email}}</p>
+            <button id="extras-button" routerLink="/main-screen/compose/{{email}}/c"><fa-icon style="color: red;" [icon]="Sent"></fa-icon></button>
+            <button id="extras-button" (click)="deleteContact(email)"><fa-icon style="color: red;" [icon]="Trash"></fa-icon></button>
+        </div>
+</div>
+</div>

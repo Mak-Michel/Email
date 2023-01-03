@@ -4,18 +4,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 public class EmailHeader {
 
     private String id;
     private String headerBody;
     private String sender;
 
-    private String[] receiver;
+    private ArrayList<String> receiver;
     private String subject;
     private int date;
     private boolean read;
 
-    public void setHeaderProperties(String id, String headerBody, String sender, String[] receiver, String subject, int date, boolean read) {
+    public void setHeaderProperties(String id, String headerBody, String sender, ArrayList<String> receiver, String subject, int date, boolean read) {
         this.id = id;
         this.headerBody = headerBody;
         this.sender = sender;
@@ -41,11 +43,11 @@ public class EmailHeader {
         this.sender = sender;
     }
 
-    public String[] getReceiver() {
+    public ArrayList<String> getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String[] receiver) {
+    public void setReceiver(ArrayList<String> receiver) {
         this.receiver = receiver;
     }
 

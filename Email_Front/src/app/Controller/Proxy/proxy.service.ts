@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Email } from '../Classes/Email';
-import { User } from '../Classes/User';
+import { User } from '../Classes/user';
 import { HttpService } from '../Http/http.service';
+import { Router } from '@angular/router';
+import { Contact } from '../Classes/Contact';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProxyService {
+
+  public currentUser: string = "";
+
+  public currentFolders: string[] = []
 
   constructor(router: Router, private http: HttpService) {
     if(this.currentUser == "") {
@@ -15,8 +20,6 @@ export class ProxyService {
       return;
     }
   }
-  
-  private currentUser: string = "";
 
   public setUser(user: string){
     this.currentUser = user;
@@ -24,6 +27,14 @@ export class ProxyService {
 
   public getUser(){
     return this.currentUser;
+  }
+
+  public setFolders(folders: string[]){
+    this.currentFolders = folders;
+  }
+
+  public getFolders(): string[]{
+    return this.currentFolders;
   }
 
   public signIn(userEmail: string, password: string){
@@ -36,24 +47,18 @@ export class ProxyService {
   }
 
   public getEmailList(emailType: string){
-    console.log(`email/list?userEmail=${this.currentUser}&listType=${emailType}`);
-    if(emailType != "inbox" && emailType != "sent" &&emailType != "draft" &&emailType != "trashed")
-      return this.http.getRequest(`email/list?userEmail=inbox&listType=${emailType}`)
     return this.http.getRequest(`email/list?userEmail=${this.currentUser}&listType=${emailType}`)
   }
 
-  public createNewEmail(body: string, to: string, subject: string, priority: number){
-    let receivers: string[] = to.split(/[\s,]+/);
-    let newEmail = new Email(body, this.currentUser, receivers, subject, 1012023, false, priority) //TODO date format
+  public createNewEmail(newEmail: Email){
     return this.http.postRequest("email/new", newEmail);
   }
-
   public editEmail(email: Email){
-    return this.http.postRequest("email/edit", email);
+    return this.http.postRequest("email/edit", email); 
   }
 
-  public deleteEmail(userEmail: string, emailId: string){
-    return this.http.deleteRequest(`email/delete?emailId=${emailId}&userEmail=${this.currentUser}`);
+  public deleteEmail(emailId: string){
+    return this.http.deleteRequest(`email/deleteFromUser?userEmail=${this.currentUser}&emailId=${emailId}`);
   }
 
   public trashEmail(emailId: string){
@@ -73,11 +78,10 @@ export class ProxyService {
   }
 
   public sortEmails(emailType: string, sortType: string){
-    return this.http.getRequest("");
+    return this.http.getRequest(`email/sort?userEmail=${this.currentUser}&emailType=${emailType}&sortType=${sortType}`);
   }
 
   public signOut(){
-    this.currentUser="";
     return this.http.putRequest(`user/signOut?userEmail=${this.currentUser}`)
   }
 
@@ -89,4 +93,48 @@ export class ProxyService {
     return this.http.getRequest("");
   }
 
+  public addContact(contact: Contact){
+    return this.http.postRequest(`user/addContact?userEmail=${this.currentUser}`, contact);
+  }
+
+  public editContact(contact: Contact){
+    return this.http.putRequest(`user/editContact?userEmail=${this.currentUser}`, contact);
+  }
+
+  public getContact(contactName: string){
+    return this.http.getRequest(`user/contact?userEmail=${this.currentUser}&name=${contactName}`);
+  }
+
+  public getContactList(){
+    return this.http.getRequest(`user/contacts?userEmail=${this.currentUser}`);
+  }
+
+  public deleteContact(contactName: string){
+    return this.http.deleteRequest(`user/deleteContact?userEmail=${this.currentUser}&contactName=${contactName}`);
+  }
+
+  public getFolderList(){
+    return this.http.getRequest(`user/folderList?userEmail=${this.currentUser}`);
+  }
+
+  public createNewFolder(folderName: string){
+    return this.http.postRequest(`user/newFolder?userEmail=${this.currentUser}&name=${folderName}`);
+  }
+
+  public moveEmails(source: string, destination: string, emailId: string){
+    return this.http.putRequest(`user/moveEmail?userEmail=${this.currentUser}&source=${source}&destination=${destination}&emailId=${emailId}`)
+  }
+
+  public restoreEmail(emailId: string){
+    return this.http.putRequest(`email/restoreEmail?userEmail=${this.currentUser}&emailId=${emailId}`)
+  }
+
+  public createDraft(emailParameters: string[]){
+    alert(emailParameters)
+    return this.http.postRequest(`email/draft`, emailParameters)
+  }
+
+  public upload(formData: FormData) {
+    return this.http.postRequest("Attachments/upload", formData);
+  }
 }

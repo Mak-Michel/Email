@@ -9,37 +9,28 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Queue;
 
-public class EmptyBuffer extends Thread{
-    private HashMap<String, CacheBlock> cache;
-    private Queue<String> buffer;
-    private Gateway database;
+public class EmptyBuffer{
 
-    public EmptyBuffer(HashMap<String, CacheBlock> cache, Queue<String> buffer, Gateway database){
-        this.cache = cache;
-        this.buffer = buffer;
-        this.database = database;
-    }
-    @Override
-    public void run(){
+    public void empty(HashMap<String, CacheBlock> cache, Queue<String> buffer, Gateway database){
         Iterator<String> itr = buffer.iterator();
         while (itr.hasNext())
         {
             String currentItr = itr.next();
             System.out.println("Iterator is: " + currentItr);
-            if (this.cache.containsKey(currentItr)){
+            if (cache.containsKey(currentItr)){
                 try {
-                    this.database.save(this.cache.get(currentItr).cachedObject);
-                    this.cache.get(currentItr).dirty = false;
+                    database.save(cache.get(currentItr).cachedObject);
+                    cache.get(currentItr).dirty = false;
                 }catch (Exception e){System.out.println(e.getMessage());}
             }
             else
-                this.database.delete(currentItr);
+                database.delete(currentItr);
         }
         try {
-            ((EmailGateway)this.database).saveAll();
-            ((EmailGateway)this.database).closeMemory();
+            ((EmailGateway)database).saveAll();
+            ((EmailGateway)database).closeMemory();
         }catch (Exception e){System.out.println("Saving users!!");}
 
-        this.buffer.clear();
+        buffer.clear();
     }
 }

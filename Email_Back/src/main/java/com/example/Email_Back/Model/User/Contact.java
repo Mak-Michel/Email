@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Contact {
 
     private String name;
-    private ArrayList<String> userEmails;
+    private ArrayList<String> userEmails = new ArrayList<>();
+
+    public Contact(){}
 
     public Contact(String name, String email) {
         this.name = name;
@@ -29,6 +31,8 @@ public class Contact {
     }
 
     public void addUserEmail(String email) {
+        if(userEmails.contains(email))
+            return;
         this.userEmails.add(email);
     }
 

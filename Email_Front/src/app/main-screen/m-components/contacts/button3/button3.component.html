@@ -1,8 +1,5 @@
 <div class="parent">
-  <div id="name">mak</div>
-  <div id="email">mkario@mymail.com</div>
-  <button>Show</button>          <!--(click)="returnId()"-->
-  <div id="select">
-    <label>Select:</label><input type="checkbox">
-  </div>
+  <input id="select" type="checkbox" (click)="select()">
+  <button class="contactButton" routerLink="/main-screen/contact-display/{{contact.name}}">{{contact.name}}</button>
+  <button id="extras-button">Edit <fa-icon [icon]="Edit"></fa-icon></button>
 </div>

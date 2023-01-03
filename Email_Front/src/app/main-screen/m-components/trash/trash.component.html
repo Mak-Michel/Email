@@ -1,1 +1,14 @@
-<app-button *ngFor="let header of headers" [header]="header"></app-button>
+<div class="headerList" style="height: 94.5%;">
+  <app-email_button *ngFor="let header of headers | paginate: {itemsPerPage: 14 , currentPage: p}" [header]="header"></app-email_button>
+</div>
+<div id="tools">
+  <div id="pagination" style="width: 91.5%;">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  <button id="extras-button" (mouseup)="restore()">Restore</button>
+  <button id="extras-button" (mouseup)="delete()"><fa-icon [icon]="Trash"></fa-icon></button>
+  <select id="extras-button" [(ngModel)]="destination" (change)="move()">
+    <option selected disabled hidden>Move</option>
+    <option *ngFor="let folder of this.proxy.getFolders()" value="{{folder}}">{{folder}}</option>
+  </select>
+</div>

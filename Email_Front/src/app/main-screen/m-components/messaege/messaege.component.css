@@ -1,0 +1,36 @@
+select {
+  background-color: #f1f1f1;
+}
+select:focus {
+  background: #f1f1f1d4;
+}
+button {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 6px 20px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+button:hover {
+  opacity: 1;
+}
+#draft-button,
+#send-button {
+  float: right;
+  margin: 2px;
+}
+label {
+  color: white;
+}
+fieldset {
+  border-color: white;
+  color: white;
+}
+#Email-body {
+  overflow: auto;
+  overflow-x: hidden;
+  height: 618px;
+}
