@@ -1,1 +1,26 @@
-{ }
+{
+  "zCnYboE8G80H8o6" : {
+    "id" : "zCnYboE8G80H8o6",
+    "emailBody" : "I'm fine thnx\uD83D\uDE0A",
+    "date" : "2023-03-22",
+    "sender" : "ehab",
+    "receivers" : [ "rowaina" ],
+    "subject" : "Faculty",
+    "attachments_IDS" : [ ],
+    "priority" : 1,
+    "counter" : "\u0000",
+    "read" : true
+  },
+  "NevIi02PPiAgJCu" : {
+    "id" : "NevIi02PPiAgJCu",
+    "emailBody" : "How are you",
+    "date" : "2023-03-22",
+    "sender" : "rowaina",
+    "receivers" : [ "ehab" ],
+    "subject" : "Faculty",
+    "attachments_IDS" : [ ],
+    "priority" : 5,
+    "counter" : "\u0000",
+    "read" : true
+  }
+}

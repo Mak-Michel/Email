@@ -1,5 +1,6 @@
 <div class="parent">
   <input id="select" type="checkbox" (click)="select()">
   <button class="contactButton" routerLink="/main-screen/contact-display/{{contact.name}}">{{contact.name}}</button>
-  <button id="extras-button">Edit <fa-icon [icon]="Edit"></fa-icon></button>
+  <button id="extras-button" style="background-color: transparent;" (click)="edit()"><fa-icon [icon]="Edit"></fa-icon></button>
+  <button id="extras-button" style="background-color: transparent;" (click)="delete()"><fa-icon [icon]="Trash"></fa-icon></button> 
 </div>

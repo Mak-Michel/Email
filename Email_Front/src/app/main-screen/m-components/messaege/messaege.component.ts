@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { Email } from 'src/app/Controller/Classes/Email';
 import { ProxyService } from 'src/app/Controller/Proxy/proxy.service';
+import { Attachment2Component } from './attachment2/attachment2.component';
 
 @Component({
   selector: 'app-messaege',
@@ -13,6 +14,7 @@ export class MessaegeComponent implements OnInit{
 
   public emailId: string;
   public email: Email | undefined
+  public aa: Attachment2Component
 
   constructor(private _route: ActivatedRoute, private proxy: ProxyService){}
 

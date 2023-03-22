@@ -6,7 +6,7 @@ body {
 }
 .Grid-container {
   display: grid;
-  grid-template-rows: 75px 820px 50px;
+  grid-template-rows: 75px 750px 50px;
   grid-template-columns: 200px 100px;
   grid-template-areas:
   "top top top"
@@ -50,12 +50,12 @@ header {
 /*---------------------------------------------- Search section ------------------------*/
 #search-section {
   height: 20px;
-  width: 600px;
+  width: 400px;
   margin: 22px;
   margin-left: 50px;
 }
 #search-text {
-  width: 400px;
+  width: 200px;
   height: 30px;
   margin: auto;
   color: white;
@@ -85,7 +85,7 @@ header {
 }
 
 /*------------------------------------Sort section & filter section-----------------------------------*/
-#sort-section , #filter-section ,#LogOut{
+#sort-section , #filter-section ,#LogOut, #Reload{
   height: 20px;
   margin: 22px;
   margin-left: 50px;
@@ -107,11 +107,30 @@ label {
 .selection-list:hover{
   opacity: 1;
 }
+#filter-button {
+  height: 35px;
+  width: 60px;
+  margin-left: 5px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+#filter-button:hover {
+  opacity:1;
+}
+
+#filter-button:active {
+  transform: translateY(2px);
+}
 
 #LogOut-button {
   height: 35px;
   width: 60px;
-  margin-left: 450px;
+  margin-left: 10px;
   border-radius: 5%;
   font-family: Cursive;
   background-color: black;
@@ -128,6 +147,47 @@ label {
   transform: translateY(2px);
 }
 
+#Reload-button {
+  height: 35px;
+  width: 60px;
+  margin-left: 10px;
+  border-radius: 5%;
+  font-family: Cursive;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+#LogOut-button:hover , #Reload-button:hover{
+  opacity:1;
+}
+
+#LogOut-button:active , #Reload-button:active{
+  transform: translateY(2px);
+}
+#select {
+  transform : scale(1.5);
+  cursor: pointer;
+  margin-left: 20px;
+  accent-color: red;
+}
+#filter-inputs {
+  width: 70px;
+  height: 20px;
+  margin: auto;
+  color: white;
+  background-color: #503d3d;
+}
+#filter-inputs:focus {
+  background-color: #503d3d36;
+}
+#select {
+  transform : scale(1.5);
+  cursor: pointer;
+  width: 20px;
+  accent-color: red;
+}
 /*-----------------------------------------  Menu ---------------------------------------------------*/
 aside {
   padding: 0px 10px 10px;
@@ -155,15 +215,29 @@ aside button{
   opacity: 0.6;
 }
 .Folder-buttons{
-  display: flex;
+  align-items: center;
+  height: 50px;
+  font-size: 15px;
+  font-family: Cursive;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
   overflow-y: scroll;
   overflow-x: scroll;
+  cursor: pointer;
+}
+.Folder-buttons:hover{
+  color: rgba(255, 255, 255, 1);
+}
+.Folder-buttons:active{
+  color: red;
+  background-color: rgba(0, 0, 0, 1);
 }
 .Folder-buttons::-webkit-scrollbar {
   display: none;
   transform: rotate(-90deg);
 }
-.Menu-buttons, .Folder-buttons {
+.Menu-buttons{
   height: 50px;
   font-size: 15px;
   font-family: Cursive;
@@ -206,5 +280,29 @@ input[type=text] {
 input[type=text]:focus{
   background-color: #ddd;
   outline: none;
+}
+
+/*-----------------------------------------  Refresh ---------------------------------------------------*/
+
+.refresh-button {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  height: 50px;
+  width: 60px;
+  font-size: 15px;
+  font-family: Cursive;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 14px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.refresh-button:hover {
+  opacity: 0.9;
+}
+
+.refresh-button:active {
+  opacity: 1;
 }
 

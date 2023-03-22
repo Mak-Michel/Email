@@ -5,7 +5,7 @@ export class EmailHeader {
         public sender?: string,
         public receivers?: string[],
         public subject?: string,
-        public date?: number,
+        public date?: string,
         public read?: boolean,
         public selected: boolean = false
     ) { }

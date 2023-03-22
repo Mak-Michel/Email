@@ -20,8 +20,8 @@ public class EmailCache{
 
     private EmailGateway database = new EmailGateway();
 
-    private final int maxBufferSize = 5;
-    private final int maxSize = 10;
+    private final int maxBufferSize = 20;
+    private final int maxSize = 50;
 
     public void loadFromDB(String emailId){
         this.cache.put(emailId, new CacheBlock(this.database.load(emailId), System.currentTimeMillis()));
@@ -103,8 +103,11 @@ public class EmailCache{
     }
 
     public void cacheManager(){
-        if(this.cache.size() >= this.maxSize)
-            this.freeCacheSpace.free(this.cache);
+        if(this.cache.size() >= this.maxSize){
+            if(!this.freeCacheSpace.free(this.cache))
+                this.emptyBuffer.empty(this.cache, this.buffer, this.database);
+        }
+
 
     }
 

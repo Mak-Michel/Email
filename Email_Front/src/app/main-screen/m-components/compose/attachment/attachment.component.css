@@ -1,0 +1,36 @@
+#attachments{
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(48, 18, 18, 0.6);
+    color: white;
+    border-radius: 10px;
+    border-color: red;
+    width: 200px;
+    height: 45px;
+    text-overflow: hidden;
+}
+#attachments:hover{
+    background-color: rgb(116, 0, 0);
+}
+#attachments:active{
+    background-color: rgb(191, 0, 0);
+}
+#downloadButton{
+    color: white;
+    background-color: transparent;
+    border: none;
+    width: 81.5%;
+    text-overflow: hidden;
+    overflow: hidden; 
+    height: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+#removeButton:hover{
+    color: rgb(114, 114, 114); 
+    cursor: pointer;
+}
+#removeButton:active{
+    color: white; 
+}

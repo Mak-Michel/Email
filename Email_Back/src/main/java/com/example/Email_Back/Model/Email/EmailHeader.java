@@ -14,10 +14,10 @@ public class EmailHeader {
 
     private ArrayList<String> receiver;
     private String subject;
-    private int date;
+    private String date;
     private boolean read;
 
-    public void setHeaderProperties(String id, String headerBody, String sender, ArrayList<String> receiver, String subject, int date, boolean read) {
+    public void setHeaderProperties(String id, String headerBody, String sender, ArrayList<String> receiver, String subject, String date, boolean read) {
         this.id = id;
         this.headerBody = headerBody;
         this.sender = sender;
@@ -59,11 +59,11 @@ public class EmailHeader {
         this.subject = subject;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

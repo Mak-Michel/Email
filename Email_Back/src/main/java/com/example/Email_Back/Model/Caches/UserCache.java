@@ -20,8 +20,8 @@ public class UserCache {
 
     private UserGateway database = new UserGateway();
 
-    private final int maxBufferSize = 5;
-    private final int maxSize = 10;
+    private final int maxBufferSize = 20;
+    private final int maxSize = 50;
 
     public void loadFromDB(String email){
         if(!UserGateway.exists(email))
@@ -45,7 +45,7 @@ public class UserCache {
     public void update(User updatedUser){
         //check if element in cache
         if(!cache.containsKey(updatedUser.getId()))
-            this.loadFromDB(updatedUser.getId()); //if miss load it from memory
+            this.loadFromDB(updatedUser.getId()); //if a miss load it from memory
         //load the email into cache
         this.cache.put(updatedUser.getId(), new CacheBlock(updatedUser, System.currentTimeMillis(), true));
         //add id to buffer to be updated in DB
@@ -81,9 +81,10 @@ public class UserCache {
     }
 
     public void cacheManager(){
-        if(this.cache.size() >= this.maxSize)
-            this.freeCacheSpace.free(this.cache);
-
+        if(this.cache.size() >= this.maxSize) {
+            if (!this.freeCacheSpace.free(this.cache))
+                this.emptyBuffer.empty(this.cache, this.buffer, this.database);
+        }
     }
 
     public void remove(String userEmail){

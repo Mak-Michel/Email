@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -21,6 +21,14 @@ export class HttpService {
 
   getRequest(instruction: string, requestBody?: any): Observable<any> {
     return this.http.get(`${this._url}${instruction}`, {params: {requestBody}, responseType: 'text'});
+  }
+
+  download(name: string): Observable<HttpEvent<Blob>> {
+    return this.http.get(`${this._url}Attachments/download/${name}`,{
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    }); 
   }
 
   putRequest(instruction: string, requestBody?: any): Observable<any> {

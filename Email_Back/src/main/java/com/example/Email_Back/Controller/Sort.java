@@ -11,7 +11,7 @@ public class Sort {
         switch(according) {
             case "sender": Collections.sort(emails, Comparator.comparing(Email::getSender));
                 break;
-            case "receivers": Collections.sort(emails, Comparator.comparing(Email::getNumberOfReceivers));
+            case "receivers": Collections.sort(emails, Comparator.comparing(Email::receiversNumber));
                 break;
             case "date": Collections.sort(emails, Comparator.comparing(Email::getDate));
                 break;
@@ -19,9 +19,9 @@ public class Sort {
                 break;
             case "body": Collections.sort(emails, Comparator.comparing(Email::getEmailBody));
                 break;
-            case "importance": Collections.sort(emails, Comparator.comparing(Email::getImportance));
+            case "importance": Collections.sort(emails, Comparator.comparing(Email::getPriority));
                 break;
-            case "attachments": Collections.sort(emails, Comparator.comparing(Email::getNumberOfAttachments));
+            case "attachments": Collections.sort(emails, Comparator.comparing(Email::attachmentsNumber));
                 break;
         }
     }

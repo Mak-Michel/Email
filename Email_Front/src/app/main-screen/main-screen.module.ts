@@ -20,6 +20,9 @@ import { AddContactComponent } from './m-components/contacts/add-contact/add-con
 import { Button3Component } from './m-components/contacts/button3/button3.component';
 import { FormsModule } from '@angular/forms';
 import { ContactDisplayComponent } from './m-components/contacts/contact-display/contact-display.component';
+import { AttachmentComponent } from './m-components/compose/attachment/attachment.component';
+import { Attachment2Component } from './m-components/messaege/attachment2/attachment2.component';
+import { MessaegeComponent } from './m-components/messaege/messaege.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { ContactDisplayComponent } from './m-components/contacts/contact-display
     Button2Component,
     AddContactComponent,
     Button3Component,
-    ContactDisplayComponent
+    ContactDisplayComponent,
+    AttachmentComponent,
+    Attachment2Component,
+    MessaegeComponent
   ],
   imports: [
     FormsModule,

@@ -25,16 +25,16 @@ export class ComposeComponent implements OnInit {
   subject: string = ""
   receivers: string = ""
   emailBody: string = ""
-  attachments_name: Array<string>;
+  attachments: string[] = []
 
   constructor(private _route: ActivatedRoute, private proxy: ProxyService){}
 
   ngOnInit() {
     this._route.params.pipe(take(1)).subscribe(params => {
         this.receivers = params['reciever'];
-        this.emailId = params['emailId'];
-        if(this.emailId.length != 15)
+        if(params['emailId'] == undefined)
           return
+        this.emailId = params['emailId'];
         this.proxy.getEmail(this.emailId).pipe(take(1)).subscribe(
           data => {
             this.email = JSON.parse(data);
@@ -44,6 +44,7 @@ export class ComposeComponent implements OnInit {
             this.subject = this.email.subject
             this.emailBody = this.email.emailBody
             this.priority = String(this.email.priority)
+            this.attachments = this.email.attachments_IDS;
           }
         )
     })
@@ -53,6 +54,7 @@ export class ComposeComponent implements OnInit {
     if(this.receivers == undefined || this.receivers == '' || this.subject == undefined || this.subject == '')
       return
     let receiversArr: string[];
+    this.receivers = this.receivers.replaceAll('@mymail.com', '')
     receiversArr = this.receivers.split(/[\s,]+/)
     for(let i = 0; i < receiversArr.length; i++){
       if(receiversArr[i] == this.proxy.currentUser){
@@ -60,57 +62,44 @@ export class ComposeComponent implements OnInit {
         return
       }
     }
-    let newEmail = new Email(this.emailId, this.emailBody, this.proxy.currentUser, receiversArr, this.subject, 0, false, Number(this.priority));
-    this.proxy.createNewEmail(newEmail).pipe(take(1)).
-    subscribe({
-      next: (data) => {
-        alert(data)
-      },
-      error(err) {
-        alert(err.error)
-      }
-    });
+    if(this.attachments == undefined || this.attachments.length == 0)
+      this.attachments = []
+    let newEmail = new Email(this.emailId, this.emailBody, this.proxy.currentUser, receiversArr, this.subject, '0', false, Number(this.priority), this.attachments);
+    this.proxy.createNewEmail(newEmail).pipe(take(1)).subscribe()
   }
 
   draft(){
     let receiversArr: string[];
     if(this.receivers == undefined || this.receivers == ''){
-      this.proxy.createDraft([this.emailId, this.subject, this.emailBody, this.priority, this.proxy.currentUser, undefined]).pipe(take(1)).subscribe()//.concat([String(receiversArr.length), '']))
+      this.proxy.createDraft([this.emailId, this.subject, this.emailBody, this.priority, this.proxy.currentUser, undefined].concat([String(this.attachments.length)]).concat(this.attachments)).pipe(take(1)).subscribe()
       return
     }
     receiversArr = this.receivers.split(/[\s,]+/)
-    this.proxy.createDraft([this.emailId, this.subject, this.emailBody, this.priority, this.proxy.currentUser, String(receiversArr.length)].concat(receiversArr)).pipe(take(1)).subscribe()//.concat([String(receiversArr.length), '']))
-  }
+    this.receivers = this.receivers.replaceAll('@mymail.com', '')
+    this.proxy.createDraft([this.emailId, this.subject, this.emailBody, this.priority, this.proxy.currentUser, String(receiversArr.length)].concat(receiversArr).concat([String(this.attachments.length)]).concat(this.attachments)).pipe(take(1)).subscribe()
+  } 
 
   Uploadfile(e: any) {
-    alert("a7a")
     if(e.target.files) {
-      this.attachments_name = new Array();
       let files = e.target.files
       let formData = new FormData();
       for(let i = 0; i < files.length ; i++) {
         formData.append('attachments', files[i], files[i].name);
-        this.attachments_name.push(files[i].name);
       }
-      console.log(this.attachments_name);
+      console.log(this.attachments);
       console.log(files.length);
 
       this.proxy.upload(formData).
       subscribe(data => {
-        alert(data);
+        if(data == undefined)
+          return
+        this.attachments = this.attachments.concat(JSON.parse(data));
       })
-      /*
-      let reader = new FileReader();
-      reader.readAsBinaryString(e.target.files[0]);
-      //console.log(e.target.files[0]);
-      var path = (window.URL || window.webkitURL).createObjectURL(e.target.files[0]);
-      //console.log(path);
-      reader.onload=(_e) => {
-        this.url = reader.result;
-        //console.log(this.url.length);
-        //console.log(this.url);
-      }*/
     }
   }
 
+  removeAttachment($event){
+    this.attachments.splice(this.attachments.indexOf($event),1);
+  }
+ 
 }

@@ -6,17 +6,17 @@
         <div id="title-text"> MY mail</div>
       </div>
       <div id="search-section">
-        <input type="text" placeholder="Search.." id="search-text">
-        <select name="search-list" class="selection-list">
+        <input type="text" placeholder="Search..." id="search-text" [(ngModel)]="query" [ngModelOptions]="{standalone: true}" (keyup)="search()">
+        <select name="search-list" class="selection-list" [(ngModel)]="searchType">
           <option value="Attachments">Attachments</option>
-          <option value="Body" selected>Body</option>
+          <option value="Body">Body</option>
           <option value="Date">Date</option>
-          <option value="Importance">Importance</option>
+          <option value="Importance">Priority</option>
           <option value="Sender">Sender</option>
-          <option value="Subject">Subject</option>
+          <option value="Subject" selected>Subject</option>
           <option value="Receivers">Receivers</option>
         </select>
-        <button id="search-button">
+        <button id="search-button" (click)="search()">
           <fa-icon style="color: white;" [icon]="Search"></fa-icon>
         </button>
       </div>
@@ -26,22 +26,29 @@
           <option value="Attachments">Attachments</option>
           <option value="Body">Body</option>
           <option value="Date" selected>Date</option>
-          <option value="Importance">Importance</option>
+          <option value="Importance">Priority</option>
           <option value="Sender">Sender</option>
           <option value="Subject">Subject</option>
           <option value="Receivers">Receivers</option>
         </select>
+        <button class="selection-list" (mouseup)="reverseHeaders()">Reverse Order</button>
       </div>
       <div id="filter-section">
         <label>Filter:</label>
-        <select name="search-list" class="selection-list">
-          <option value="Attachments">Attachments</option>      <!--number of attachments-->
+        <select name="search-list" class="selection-list" [(ngModel)]="filterType" [ngModelOptions]="{standalone: true}">
+          <option value="Attachments">Attachments</option>
           <option value="Date">Date</option>
-          <option value="Importance">Importance</option>
-          <option value="Sender">Sender</option>
-          <option value="Subject">Subject</option>
-          <option value="Receivers">Receivers</option>
+          <option value="Length">Body Length</option>
         </select>
+        <input id="select" type="checkbox" (click)="toggleInput()">                     <!--hna method eli bt2ol na m5tar wla la2 4of eli fi button component-->
+        <label [hidden]="filterType != 'Date'" > Later </label>
+        <label [hidden]="filterType != 'Length'" > Above </label>
+        <label [hidden]="filterType != 'Attachments'" > Has attachments </label>
+        <input type="text" *ngIf="filterType == 'Date' || filterType == 'Length'" placeholder="Enter Input" id="filter-inputs" [(ngModel)]="compared" [ngModelOptions]="{standalone: true}">
+        <button id="filter-button" (click)="filter()"><fa-icon style="color: red;" [icon]="Filter"></fa-icon></button>
+      </div>
+      <div id="Reload">
+        <button id="Reload-button" (mouseup)="refresh()"><fa-icon [icon]="Refresh"></fa-icon></button> 
       </div>
       <div id="LogOut">
         <button id="LogOut-button" (mouseup)="logOut()">LogOut</button>   <!--hna han7ot method on click tb3t ll back t2olo etl3 5als w n3ml routing fi ts-->
@@ -57,11 +64,13 @@
       <button class="Menu-buttons" routerLink="/main-screen/contacts">Contacts <fa-icon style="color: red;" [icon]="Contacts"></fa-icon></button>
       <button class="Menu-buttons" id="c-Folders-buttons" routerLink="/main-screen/create-folder">Create folder <fa-icon style="color: red;" [icon]="NewFolder"></fa-icon></button>
       <hr style="width: 80%;">
-      <button class="Folder-buttons" id="s-Folders-buttons" *ngFor="let folder of this.proxy.getFolders()" routerLink="/main-screen/folder/{{folder}}" ><fa-icon style="color: red;" [icon]="Folders"></fa-icon>           {{folder}}</button>
-    
+      <div *ngFor="let folder of this.proxy.getFolders()" style="display: flex;">
+        <button style="width: 90%;text-overflow: hidden;display:flex;" class="Folder-buttons" routerLink="/main-screen/folder/{{folder}}" ><fa-icon style="color: red;" [icon]="Folders"></fa-icon>{{folder}}</button>
+        <button style=" border: none;" class="Folder-buttons" (click)="deleteFolder(folder)"><fa-icon style="color: red;" [icon]="Trash"></fa-icon></button>
+      </div>
     </aside>
     <main>
-      <router-outlet></router-outlet>
+      <router-outlet></router-outlet> 
     </main>
   </div>
 </body>

@@ -51,6 +51,7 @@ export class ProxyService {
   }
 
   public createNewEmail(newEmail: Email){
+    alert(newEmail)
     return this.http.postRequest("email/new", newEmail);
   }
   public editEmail(email: Email){
@@ -69,8 +70,13 @@ export class ProxyService {
     return this.http.getRequest("attachments/open");
   }
 
-  public searchEmails(emailType: string, query: string, searchType: string){
-    return this.http.getRequest("");
+  public searchEmails(emailType: string, searchType: string, searchKey: string){
+    return this.http.getRequest(`email/search?userEmail=${this.currentUser}&emailType=${emailType}&searchType=${searchType}&searchKey=${searchKey}`);
+  }
+
+  public filterEmails(emailType: string, filterType: string, compared: string, bool: string){
+    console.log(emailType + " " + filterType + " " + compared + " " + bool)
+    return this.http.getRequest(`email/filter?userEmail=${this.currentUser}&emailType=${emailType}&filterType=${filterType}&compared=${compared}&bool=${bool}`);
   }
 
   public searchContacts(query: string){
@@ -129,12 +135,19 @@ export class ProxyService {
     return this.http.putRequest(`email/restoreEmail?userEmail=${this.currentUser}&emailId=${emailId}`)
   }
 
-  public createDraft(emailParameters: string[]){
-    alert(emailParameters)
+  public createDraft(emailParameters: string[]){ 
     return this.http.postRequest(`email/draft`, emailParameters)
+  }
+
+  public deleteFolder(folderName: string){
+    return this.http.deleteRequest(`user/deleteFolder?userEmail=${this.currentUser}&name=${folderName}`);
   }
 
   public upload(formData: FormData) {
     return this.http.postRequest("Attachments/upload", formData);
+  }
+
+  public download(name: string) {
+    return this.http.download(name);
   }
 }

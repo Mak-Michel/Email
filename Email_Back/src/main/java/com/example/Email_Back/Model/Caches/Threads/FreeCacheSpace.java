@@ -9,7 +9,7 @@ import java.util.Queue;
 
 public class FreeCacheSpace{
 
-    public void free(HashMap<String, CacheBlock> cache){
+    public boolean free(HashMap<String, CacheBlock> cache){
         Queue<CacheBlock> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a.counter));
         for(HashMap.Entry<String, CacheBlock> set : cache.entrySet())
             pq.add(set.getValue());
@@ -21,5 +21,6 @@ public class FreeCacheSpace{
                 counter--;
             }
         }
+        return counter <= 10;
     }
 }

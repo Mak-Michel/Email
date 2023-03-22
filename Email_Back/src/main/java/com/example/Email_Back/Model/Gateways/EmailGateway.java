@@ -14,6 +14,9 @@ public class EmailGateway implements Gateway{
     private HashMap<String, Email> database = new HashMap<>();
 
     public void saveAll() {
+        if(database.isEmpty()) {
+            return;
+        }
         try (FileOutputStream myFile = new FileOutputStream("database\\Emails\\MailDB.json")) {
             ObjectMapper mapper = new ObjectMapper();
             byte[] Obj = mapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(database);
@@ -48,6 +51,7 @@ public class EmailGateway implements Gateway{
     public void save(Cacheable email){
         if(this.database.isEmpty())
             this.database = this.loadAll();
+        System.out.println(((Email) email).toString());
         this.database.put(email.getId(), (Email) email);
     }
 

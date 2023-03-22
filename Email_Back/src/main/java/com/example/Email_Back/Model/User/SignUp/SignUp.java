@@ -3,8 +3,10 @@ package com.example.Email_Back.Model.User.SignUp;
 import com.example.Email_Back.Model.User.User;
 import com.example.Email_Back.Model.User.UserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 public class SignUp implements ISignUp{
+
 
     private String name;
     private String email;

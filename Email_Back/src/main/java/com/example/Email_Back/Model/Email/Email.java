@@ -10,10 +10,9 @@ import java.util.ArrayList;
 @Component
 @Scope("prototype")
 public class Email implements Cacheable {
-    private int importance;
     private String id;
     private String emailBody;
-    private int date;
+    private String date;
     private String sender;
     private ArrayList<String> receivers;
     private String subject;
@@ -43,8 +42,7 @@ public class Email implements Cacheable {
         this.read = false;
     }
 
-    public void setEmailProperties(String id, String emailBody, int date, String sender, ArrayList<String> receivers, String subject, ArrayList<String> attachments_IDS) {
-        this.importance = importance;
+    public void setEmailProperties(String id, String emailBody, String date, String sender, ArrayList<String> receivers, String subject, ArrayList<String> attachments_IDS) {
         this.id = id;
         this.emailBody = emailBody;
         this.date = date;
@@ -66,10 +64,10 @@ public class Email implements Cacheable {
         return emailBody;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date =  date;
     }
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -120,7 +118,7 @@ public class Email implements Cacheable {
         return "Email{" +
                 "id='" + id + '\'' +
                 ", emailBody='" + emailBody + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
                 ", sender='" + sender + '\'' +
                 ", receivers=" + receivers +
                 ", subject='" + subject + '\'' +
@@ -130,10 +128,7 @@ public class Email implements Cacheable {
                 ", read=" + read +
                 '}';
     }
-    public int getImportance() { return importance; }
 
-    public void setImportance(int importance) { this.importance = importance; }
-
-    public int getNumberOfReceivers() { return receivers.size(); }
-    public int getNumberOfAttachments() { return attachments_IDS.size(); }
+    public int receiversNumber() { return receivers.size(); }
+    public int attachmentsNumber() { return attachments_IDS.size(); }
 }

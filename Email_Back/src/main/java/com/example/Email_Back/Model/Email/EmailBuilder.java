@@ -107,9 +107,9 @@ public class EmailBuilder {
         return this;
     }
 
-    public Email getInstance(){
+    public Email getInstance() {
         Email email = appContext.getBean(Email.class);
-        email.setEmailProperties(this.id, this.emailBody, Integer.parseInt(LocalDate.now().toString().replace("-", "")), this.sender, this.receivers, this.subject, this.attachments_IDS);
+        email.setEmailProperties(this.id, this.emailBody, LocalDate.now().toString(), this.sender, this.receivers, this.subject, this.attachments_IDS);
         return email;
     }
 }

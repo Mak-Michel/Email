@@ -1,7 +1,6 @@
 package com.example.Email_Back.Controller;
 
 import com.example.Email_Back.Model.Caches.UserCache;
-import com.example.Email_Back.Model.Email.Email;
 import com.example.Email_Back.Model.User.Contact;
 import com.example.Email_Back.Model.User.SignIn.ProxySignIn;
 import com.example.Email_Back.Model.User.SignUp.ProxySignUp;
@@ -59,9 +58,9 @@ public class UserService {
     }
 
     @PutMapping("editContact")
-    public ResponseEntity<String> editContact(@RequestParam("userEmail") String userEmail, @RequestBody Contact contact){
-        System.out.println(contact.getName());
-        if(contact.getUserEmails().contains(userEmail)){
+    public ResponseEntity<String> editContact(@RequestParam("userEmail") String userEmail, @RequestBody Contact contact) {
+        System.out.println("Editing " + contact.getName());
+        if (contact.getUserEmails().contains(userEmail)) {
             System.out.println("User editing himself");
             return ResponseEntity.status(HttpStatus.OK).body("User editing himself!!");
         }
@@ -73,14 +72,14 @@ public class UserService {
     }
 
     @PostMapping("addContact")
-    public ResponseEntity<String> addContact(@RequestParam("userEmail") String userEmail, @RequestBody Contact contact){
+    public ResponseEntity<String> addContact(@RequestParam("userEmail") String userEmail, @RequestBody Contact contact) {
         System.out.println(contact.getName());
-        if(contact.getUserEmails().contains(userEmail)){
+        if (contact.getUserEmails().contains(userEmail)) {
             System.out.println("User adding himself");
             return ResponseEntity.status(HttpStatus.OK).body("User editing himself!!");
         }
         User user = this.userCache.retrieve(userEmail);
-        for (String contactEmail : contact.getUserEmails()){
+        for (String contactEmail : contact.getUserEmails()) {
             user.addContact(contact.getName(), contactEmail);
         }
         this.userCache.update(user);
@@ -89,15 +88,15 @@ public class UserService {
     }
 
     @DeleteMapping("deleteContact")
-    public void deleteContact(@RequestParam("userEmail") String userEmail, @RequestParam("contactName") String contactName){
+    public void deleteContact(@RequestParam("userEmail") String userEmail, @RequestParam("contactName") String contactName) {
+        System.out.println("Deleting " + contactName);
         User user = this.userCache.retrieve(userEmail);
         user.getContacts().remove(contactName);
         this.userCache.update(user);
     }
 
     @GetMapping("contacts")
-    public ResponseEntity<Contact[]> getContactList(@RequestParam("userEmail") String userEmail)
-    {
+    public ResponseEntity<Contact[]> getContactList(@RequestParam("userEmail") String userEmail) {
         User user = this.userCache.retrieve(userEmail);
         HashMap<String, Contact> userContacts = user.getContacts();
 
@@ -105,17 +104,17 @@ public class UserService {
     }
 
     @GetMapping("contact")
-    public ResponseEntity<Contact> getContact(@RequestParam("userEmail") String userEmail, @RequestParam("name") String contactName){
+    public ResponseEntity<Contact> getContact(@RequestParam("userEmail") String userEmail, @RequestParam("name") String contactName) {
         User user = this.userCache.retrieve(userEmail);
-        if(!user.getContacts().containsKey(contactName))
+        if (!user.getContacts().containsKey(contactName))
             return ResponseEntity.status(HttpStatus.OK).body(null);
         return ResponseEntity.status(HttpStatus.OK).body(user.getContacts().get(contactName));
     }
 
     @PostMapping("newFolder")
-    public ResponseEntity<String> createNewFolder(@RequestParam("userEmail") String userEmail, @RequestParam("name") String folderName){
+    public ResponseEntity<String> createNewFolder(@RequestParam("userEmail") String userEmail, @RequestParam("name") String folderName) {
         User user = this.userCache.retrieve(userEmail);
-        if(user.getFolders().containsKey(folderName))
+        if (user.getFolders().containsKey(folderName))
             return ResponseEntity.status(HttpStatus.OK).body("Folder already exists");
         System.out.println(folderName);
         user.addNewFolder(folderName);
@@ -124,29 +123,28 @@ public class UserService {
     }
 
     @GetMapping("folderList")
-    public ResponseEntity<String[]> getFolderList(@RequestParam("userEmail") String userEmail){
+    public ResponseEntity<String[]> getFolderList(@RequestParam("userEmail") String userEmail) {
         User user = this.userCache.retrieve(userEmail);
         String[] folderList = new String[user.getFolders().size()];
         int index = 0;
-        for(Map.Entry<String, ArrayList<String>> folder : user.getFolders().entrySet())
+        for (Map.Entry<String, ArrayList<String>> folder : user.getFolders().entrySet())
             folderList[index++] = folder.getKey();
         return ResponseEntity.status(HttpStatus.OK).body(folderList);
     }
 
     @DeleteMapping("deleteFolder")
-    public ResponseEntity<String> deleteFolder(@RequestParam("userEmail") String userEmail, @RequestParam("name") String folderName){
+    public void deleteFolder(@RequestParam("userEmail") String userEmail, @RequestParam("name") String folderName) {
         User user = this.userCache.retrieve(userEmail);
-        if(!user.getFolders().containsKey(folderName))
-            return ResponseEntity.status(HttpStatus.OK).body("Folder doesn't exists");
+        if (!user.getFolders().containsKey(folderName))
+            return;
         user.deleteFolder(folderName);
         this.userCache.update(user);
-        return ResponseEntity.status(HttpStatus.OK).body("Folder Deleted Successfully");
     }
 
     @PutMapping("moveEmail")
-    public ResponseEntity<String> moveEmail(@RequestParam("userEmail") String userEmail, @RequestParam("source") String sourceFolder, @RequestParam("destination") String destinationFolder, @RequestParam("emailId") String emailId){
+    public ResponseEntity<String> moveEmail(@RequestParam("userEmail") String userEmail, @RequestParam("source") String sourceFolder, @RequestParam("destination") String destinationFolder, @RequestParam("emailId") String emailId) {
         User user = this.userCache.retrieve(userEmail);
-        if(!user.moveEmail(sourceFolder, destinationFolder, emailId))
+        if (!user.moveEmail(sourceFolder, destinationFolder, emailId))
             return ResponseEntity.status(HttpStatus.OK).body("Folder doesn't exists");
         this.userCache.update(user);
         return ResponseEntity.status(HttpStatus.OK).body("Email Moved Successfully");

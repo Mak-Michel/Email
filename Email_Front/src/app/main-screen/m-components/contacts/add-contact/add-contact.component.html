@@ -1,7 +1,7 @@
 <form action="/action_page.php">
   <fieldset>
     <legend>New contact:</legend>
-    <label>Name:</label><input class="Name-input" type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+    <label>Name:</label><input class="Name-input" type="text" [(ngModel)]="this.contact.name" [ngModelOptions]="{standalone: true}">
     <hr>
     <label>Email(s):</label><textarea rows="15" cols="215" [(ngModel)]="emails" [ngModelOptions]="{standalone: true}" placeholder="email1@mymail.com email2@mymail.com 'the space between each email is required'"></textarea>
     <button type="button"  id="extras-button" (click)="saveContact()"><fa-icon [icon]="Save"></fa-icon></button>   <!--hna b2a method onclick 34an nb3t biha name da ll back w nb3t l showfolders 34an n display-->

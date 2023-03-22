@@ -8,6 +8,11 @@
     <hr />
     <label> Priority: {{this.email.priority}}</label>
     <hr />
+    <label> Attachments: </label>
+    <div style="display: flex;">
+      <app-attachment2 *ngFor="let attachment of this.email.attachments_IDS" [name]="attachment"></app-attachment2>
+    </div>
+    <hr />
     <div id="Email-body">
       {{this.email.emailBody}}
     </div>

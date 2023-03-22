@@ -11,10 +11,12 @@
       <option value="4">4</option>
       <option value="5">5</option>
     </select><hr>
-    <textarea name="message" rows="42" cols="215" [(ngModel)]="emailBody" [ngModelOptions]="{standalone: true}"></textarea>
-    <!-- <button type="button" id="attachments-button"><input type = "file" (change)="Uploadfile($event)"  multiple>Attachments <fa-icon [icon]="paperClip"></fa-icon></button> -->
+    <textarea name="message" rows="32" cols="215" [(ngModel)]="emailBody" [ngModelOptions]="{standalone: true}"></textarea>
     <input type = "file" (change)="Uploadfile($event)"  id="attach" style="display: none;" multiple/>
     <label id="attachments-button" for="attach">Attach <fa-icon [icon]="paperClip"></fa-icon></label>
+    <div style="display: flex;">
+      <app-attachment *ngFor="let attachment of attachments" [name]="attachment" (remove)="removeAttachment($event)"></app-attachment>
+    </div>
     <button type="button" id="send-button" (click)="sendEmail()">Send <fa-icon [icon]="send"></fa-icon></button>
     <button type="button" id="draft-button" (click)="draft()">Save as a Draft <fa-icon [icon]="save"></fa-icon></button>
   </fieldset>

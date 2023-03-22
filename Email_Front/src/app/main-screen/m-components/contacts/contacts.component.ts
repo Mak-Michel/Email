@@ -27,9 +27,20 @@ export class ContactsComponent {
   }
 
   deleteContacts(){
+    if(!confirm(`Are you sure you want to remove these contacts forever?`))
+      return
     for(let i = 0; i < this.contacts.length; i++){
-      if(this.contacts[i].selected)
+      if(this.contacts[i].selected){
         this.proxy.deleteContact(this.contacts[i].name).pipe(take(1)).subscribe();
+        this.contacts.splice(this.contacts.indexOf(this.contacts[i]), 1)
+      }
+    }
+  }
+
+  delete($event){
+    if(confirm(`Are you sure you want to remove ${$event} from your contacts forever?`)){
+      this.proxy.deleteContact($event).pipe(take(1)).subscribe();
+      this.contacts.splice(this.contacts.indexOf($event), 1)
     }
   }
 

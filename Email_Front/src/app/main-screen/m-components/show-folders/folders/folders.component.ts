@@ -20,29 +20,20 @@ export class FoldersComponent{
   //// Moving
   destination: string
 
-  constructor(private _route: ActivatedRoute, public proxy: ProxyService, private router: Router) {
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-          console.log('Route change detected');
-      }
-
-      if (event instanceof NavigationEnd) {
-        console.log('Route afsafsdf detected');
-        this._route.params.pipe(take(1)).subscribe(params => {
-          this.folderName = params['folder-name'];
-          this.proxy.getEmailList(this.folderName).pipe(take(1)).subscribe(
-            data => {
-              this.headers = JSON.parse(data);
-            }
-          )
-          })
-      }
-
-      if (event instanceof NavigationError) {
-        console.log('adsfadsfdf'); 
-      }
-  })
-}
+  constructor(private _route: ActivatedRoute, public proxy: ProxyService) {
+    console.log('Route afsafsdf detected');
+    this._route.params.pipe(take(1)).subscribe(params => {
+      this.folderName = params['folder-name'];
+      this.proxy.getEmailList(this.folderName).pipe(take(1)).subscribe(
+        data => {
+          console.log(data);
+          if(data == null || data == undefined)
+            return
+          this.headers = JSON.parse(data);
+        }
+      )
+      })
+  } 
 move(){
   for(let header of this.headers) {
     if(header.selected) {
